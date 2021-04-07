@@ -28,10 +28,16 @@ Pregunta class >> conTitulo: aTitle yTexto:aText relacionadoA:aTopicCollection [
 	^ instance
 ]
 
+{ #category : #accessing }
+Pregunta >> agregarRespuesta: aAnswer [
+	respuestas add: aAnswer .
+]
+
 { #category : #initialize }
 Pregunta >> initialize [
 	super initialize.
 	topicos := OrderedCollection new.
+	respuestas := OrderedCollection new.
 ]
 
 { #category : #accessing }
