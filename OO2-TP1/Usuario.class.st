@@ -42,18 +42,8 @@ Usuario >> agregarTopicoDeInteres: aTopic [
 ]
 
 { #category : #accessing }
-Usuario >> contraseña: anObject [
-	contraseña := anObject
-]
-
-{ #category : #accessing }
 Usuario >> fechaYhora [
 	^ fechaYhora
-]
-
-{ #category : #accessing }
-Usuario >> fechaYhora: anObject [
-	fechaYhora := anObject
 ]
 
 { #category : #initialization }
@@ -77,11 +67,6 @@ Usuario >> initializeConNombre: aName contraseña: aPass [
 { #category : #accessing }
 Usuario >> nombre [
 	^ nombre
-]
-
-{ #category : #accessing }
-Usuario >> nombre: anObject [
-	nombre := anObject
 ]
 
 { #category : #queries }
