@@ -60,10 +60,6 @@ Usuario >> nombre: anObject [
 ]
 
 { #category : #queries }
-Usuario >> obtenerPreguntasConTopicos: aTopics oHechaPor: aUsers [
-]
-
-{ #category : #queries }
 Usuario >> obtenerPreguntasDelTopico: aTopic [
 	^ preguntas select: [ :preg | preg topicos includes: aTopic ]
 ]
