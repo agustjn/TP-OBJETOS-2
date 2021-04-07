@@ -22,9 +22,23 @@ Usuario class >> conNombre: aName yContraseña: aPassword [
 	^ instance
 ]
 
+{ #category : #initialization }
+Usuario class >> nuevoConNombre: aName yContraseña: aPassword [
+	| instance |
+	instance := self new.
+	instance initializeConNombre: aName contraseña: aPassword .
+	^instance 
+	
+]
+
 { #category : #accessing }
 Usuario >> agregarPregunta: aQuestion [
 	preguntas add: aQuestion.
+]
+
+{ #category : #accessing }
+Usuario >> agregarTopicoDeInteres: aTopic [
+	topicosDeInteres add: aTopic .
 ]
 
 { #category : #accessing }
@@ -47,6 +61,17 @@ Usuario >> initialize [
 	seguidos:= OrderedCollection new.
 	topicosDeInteres := OrderedCollection new.
 	preguntas := OrderedCollection new.
+]
+
+{ #category : #initialization }
+Usuario >> initializeConNombre: aName contraseña: aPass [ 
+	nombre:= aName .
+	contraseña := aPass.
+	fechaYhora := DateAndTime today .
+	seguidos := OrderedCollection new.
+	topicosDeInteres := OrderedCollection new.
+	preguntas := OrderedCollection new .
+	
 ]
 
 { #category : #accessing }
@@ -72,6 +97,11 @@ Usuario >> preguntas [
 { #category : #accessing }
 Usuario >> seguidos [
 	^ seguidos
+]
+
+{ #category : #accessing }
+Usuario >> seguirUsuario: aUser [
+	seguidos add: aUser .
 ]
 
 { #category : #accessing }
