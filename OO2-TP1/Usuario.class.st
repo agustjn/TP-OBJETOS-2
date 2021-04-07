@@ -33,6 +33,11 @@ Usuario >> contraseña: anObject [
 ]
 
 { #category : #accessing }
+Usuario >> fechaYhora [
+	^ fechaYhora
+]
+
+{ #category : #accessing }
 Usuario >> fechaYhora: anObject [
 	fechaYhora := anObject
 ]
@@ -45,11 +50,35 @@ Usuario >> initialize [
 ]
 
 { #category : #accessing }
+Usuario >> nombre [
+	^ nombre
+]
+
+{ #category : #accessing }
 Usuario >> nombre: anObject [
 	nombre := anObject
 ]
 
 { #category : #queries }
+Usuario >> obtenerPreguntasConTopicos: aTopics oHechaPor: aUsers [
+]
+
+{ #category : #queries }
 Usuario >> obtenerPreguntasDelTopico: aTopic [
 	^ preguntas select: [ :preg | preg topicos includes: aTopic ]
+]
+
+{ #category : #accessing }
+Usuario >> preguntas [
+	^ preguntas
+]
+
+{ #category : #accessing }
+Usuario >> seguidos [
+	^ seguidos
+]
+
+{ #category : #accessing }
+Usuario >> topicosDeInteres [
+	^ topicosDeInteres
 ]
