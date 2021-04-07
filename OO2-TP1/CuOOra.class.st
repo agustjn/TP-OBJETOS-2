@@ -41,6 +41,12 @@ CuOOra >> obtenerPreguntasDeTopico: aTopic [
 
 ]
 
+{ #category : #queries }
+CuOOra >> preguntasRelevantesParaUsuario: aUser [
+	"Se considera relevante una pregunta cuando ésta pertenece a un tópico de interés para el usuario en cuestión o bien cuando fue realizada por alguno de los usuarios que sigue en la red social."
+	usuarios do: [ :user | user obtenerRelevantesDe: aUser ]
+]
+
 { #category : #accessing }
 CuOOra >> topicos [
 	^ topicos

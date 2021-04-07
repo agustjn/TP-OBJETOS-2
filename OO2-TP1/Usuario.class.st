@@ -47,6 +47,11 @@ Usuario >> contraseña: anObject [
 ]
 
 { #category : #accessing }
+Usuario >> fechaYhora [
+	^ fechaYhora
+]
+
+{ #category : #accessing }
 Usuario >> fechaYhora: anObject [
 	fechaYhora := anObject
 ]
@@ -70,8 +75,17 @@ Usuario >> initializeConNombre: aName contraseña: aPass [
 ]
 
 { #category : #accessing }
+Usuario >> nombre [
+	^ nombre
+]
+
+{ #category : #accessing }
 Usuario >> nombre: anObject [
 	nombre := anObject
+]
+
+{ #category : #queries }
+Usuario >> obtenerPreguntasConTopicos: aTopics oHechaPor: aUsers [
 ]
 
 { #category : #queries }
@@ -80,6 +94,21 @@ Usuario >> obtenerPreguntasDelTopico: aTopic [
 ]
 
 { #category : #accessing }
+Usuario >> preguntas [
+	^ preguntas
+]
+
+{ #category : #accessing }
+Usuario >> seguidos [
+	^ seguidos
+]
+
+{ #category : #accessing }
 Usuario >> seguirUsuario: aUser [
 	seguidos add: aUser .
+]
+
+{ #category : #accessing }
+Usuario >> topicosDeInteres [
+	^ topicosDeInteres
 ]
