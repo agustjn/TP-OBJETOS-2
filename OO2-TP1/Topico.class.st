@@ -12,7 +12,7 @@ Class {
 Topico class >> conNombre: aName yDesc: aDescription [
 	| instance |
 	instance := self new.
-	instance name: aName.
+	instance nombre: aName.
 	instance desc: aDescription.
 	^ instance
 ]

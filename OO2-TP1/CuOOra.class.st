@@ -25,7 +25,28 @@ CuOOra >> initialize [
 ]
 
 { #category : #queries }
-CuOOra >> obtenerPreguntaDeTopico: aTopic [
-	^ usuarios collect: [ :user | user obtenerPreguntaDelTopico: aTopic]
+CuOOra >> obtenerPreguntasDeTopico: aTopic [
+"Se retorna la coleccion de preguntas segun el topico recibido como parametro.
+ Por cada usuario se retorna una coleccion de preguntas (si es que son relacionadas al topico)
+ y por cada coleccion de los usuarios recibida (#obtenerPreguntasDelTopico) 
+ se itera a la coleccion agregando las preguntas validas."
+	| coleccionPreguntas |
+	coleccionPreguntas := OrderedCollection new.
+	usuarios
+		do: [ :user | 
+			(user obtenerPreguntasDelTopico: aTopic)
+				do: [ :preg | preg ifNotNil: [ coleccionPreguntas add: preg ] ] ].
+	^ coleccionPreguntas
 	
+
+]
+
+{ #category : #accessing }
+CuOOra >> topicos [
+	^ topicos
+]
+
+{ #category : #accessing }
+CuOOra >> usuarios [
+	^ usuarios
 ]

@@ -2,7 +2,8 @@ Class {
 	#name : #Pregunta,
 	#superclass : #Publicacion,
 	#instVars : [
-		'text',
+		'titulo',
+		'texto',
 		'topicos',
 		'respuestas'
 	],
@@ -18,8 +19,19 @@ Pregunta class >> con: aText [
 ]
 
 { #category : #initialize }
+Pregunta class >> conTitulo: aTitle yTexto:aText relacionadoA:aTopicCollection [
+	| instance |
+	instance := self new.
+	instance titulo: aTitle.
+	instance texto: aText.
+	instance topicos addAll: aTopicCollection .
+	^ instance
+]
+
+{ #category : #initialize }
 Pregunta >> initialize [
 	super initialize.
+	topicos := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -33,13 +45,23 @@ Pregunta >> respuestas: anObject [
 ]
 
 { #category : #accessing }
-Pregunta >> text [
-	^ text
+Pregunta >> texto [
+	^ texto
 ]
 
 { #category : #accessing }
-Pregunta >> text: anObject [
-	text := anObject
+Pregunta >> texto: anObject [
+	texto := anObject
+]
+
+{ #category : #accessing }
+Pregunta >> titulo [
+	^ titulo
+]
+
+{ #category : #accessing }
+Pregunta >> titulo: anObject [
+	titulo := anObject
 ]
 
 { #category : #accessing }

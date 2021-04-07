@@ -16,10 +16,15 @@ Class {
 Usuario class >> conNombre: aName yContraseña: aPassword [
 	| instance |
 	instance := self new.
-	instance name: aName.
-	instance password: aPassword.
+	instance nombre: aName.
+	instance contraseña: aPassword.
 	instance fechaYhora: DateAndTime today.
 	^ instance
+]
+
+{ #category : #accessing }
+Usuario >> agregarPregunta: aQuestion [
+	preguntas add: aQuestion.
 ]
 
 { #category : #accessing }
@@ -45,6 +50,6 @@ Usuario >> nombre: anObject [
 ]
 
 { #category : #queries }
-Usuario >> obtenerPreguntasDeTopico: aTopic [
+Usuario >> obtenerPreguntasDelTopico: aTopic [
 	^ preguntas select: [ :preg | preg topicos includes: aTopic ]
 ]
