@@ -25,6 +25,13 @@ CuOOra >> initialize [
 ]
 
 { #category : #queries }
+CuOOra >> obtenerPreguntas [
+	
+	usuarios do: [ :user | ^(user preguntas collect: [:preg| preg] )] .
+
+]
+
+{ #category : #queries }
 CuOOra >> obtenerPreguntasDeTopico: aTopic [
 "Se retorna la coleccion de preguntas segun el topico recibido como parametro.
  Por cada usuario se retorna una coleccion de preguntas (si es que son relacionadas al topico)
@@ -44,7 +51,13 @@ CuOOra >> obtenerPreguntasDeTopico: aTopic [
 { #category : #queries }
 CuOOra >> preguntasRelevantesParaUsuario: aUser [
 	"Se considera relevante una pregunta cuando ésta pertenece a un tópico de interés para el usuario en cuestión o bien cuando fue realizada por alguno de los usuarios que sigue en la red social."
-	usuarios do: [ :user | user obtenerRelevantesDe: aUser ]
+	| preguntasR preguntasRs|
+	preguntasR := (aUser topicosDeInteres select: [ :topic | self obtenerPreguntasDeTopico: topic ]) asSet .
+	preguntasRs := (aUser seguidos do: [ :user | user preguntas ] ) asSet .
+	preguntasR addAll: preguntasRs .
+	^preguntasR 
+	
+	
 ]
 
 { #category : #accessing }

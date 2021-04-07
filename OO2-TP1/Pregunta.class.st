@@ -11,14 +11,6 @@ Class {
 }
 
 { #category : #initialize }
-Pregunta class >> con: aText [
-	| instance |
-	instance := self new.
-	instance text: aText.
-	^ instance
-]
-
-{ #category : #initialize }
 Pregunta class >> conTitulo: aTitle yTexto:aText relacionadoA:aTopicCollection [
 	| instance |
 	instance := self new.
