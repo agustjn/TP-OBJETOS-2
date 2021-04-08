@@ -13,16 +13,6 @@ Class {
 }
 
 { #category : #initialization }
-Usuario class >> conNombre: aName yContraseña: aPassword [
-	| instance |
-	instance := self new.
-	instance nombre: aName.
-	instance contraseña: aPassword.
-	instance fechaYhora: DateAndTime today.
-	^ instance
-]
-
-{ #category : #initialization }
 Usuario class >> nuevoConNombre: aName yContraseña: aPassword [
 	| instance |
 	instance := self new.
@@ -41,18 +31,6 @@ Usuario >> agregarTopicoDeInteres: aTopic [
 	topicosDeInteres add: aTopic .
 ]
 
-{ #category : #accessing }
-Usuario >> fechaYhora [
-	^ fechaYhora
-]
-
-{ #category : #initialization }
-Usuario >> initialize [
-	seguidos:= OrderedCollection new.
-	topicosDeInteres := OrderedCollection new.
-	preguntas := OrderedCollection new.
-]
-
 { #category : #initialization }
 Usuario >> initializeConNombre: aName contraseña: aPass [ 
 	nombre:= aName .
@@ -62,11 +40,6 @@ Usuario >> initializeConNombre: aName contraseña: aPass [
 	topicosDeInteres := OrderedCollection new.
 	preguntas := OrderedCollection new .
 	
-]
-
-{ #category : #accessing }
-Usuario >> nombre [
-	^ nombre
 ]
 
 { #category : #queries }

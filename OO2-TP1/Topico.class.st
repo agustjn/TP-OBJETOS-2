@@ -9,20 +9,15 @@ Class {
 }
 
 { #category : #initialization }
-Topico class >> conNombre: aName yDesc: aDescription [
+Topico class >> newConNombre: aName yDesc: aDescription [
 	| instance |
 	instance := self new.
-	instance nombre: aName.
-	instance desc: aDescription.
+	instance initializeConNombre: aName  descripcion: aDescription .
 	^ instance
 ]
 
-{ #category : #accessing }
-Topico >> desc: anObject [
-	desc := anObject
-]
-
-{ #category : #accessing }
-Topico >> nombre: anObject [
-	nombre := anObject
+{ #category : #initialization }
+Topico >> initializeConNombre: aName descripcion: aDesc [
+	nombre := aName .
+	desc := aDesc .
 ]

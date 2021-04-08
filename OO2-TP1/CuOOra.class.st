@@ -49,6 +49,13 @@ CuOOra >> obtenerPreguntasDeTopico: aTopic [
 ]
 
 { #category : #queries }
+CuOOra >> obtenerRespuestas: aQuestion [ 
+"esta mal, falta calcular puntaje"
+	^ aQuestion respuestas 
+
+]
+
+{ #category : #queries }
 CuOOra >> preguntasRelevantesParaUsuario: aUser [
 	"Se considera relevante una pregunta cuando ésta pertenece a un tópico de interés para el usuario en cuestión o bien cuando fue realizada por alguno de los usuarios que sigue en la red social."
 	| preguntasR preguntasRs|

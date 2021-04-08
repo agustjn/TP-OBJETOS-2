@@ -15,7 +15,7 @@ TestCuOOra >> setUp [
 { #category : #testing }
 TestCuOOra >> testAgregarTopico [
 	| topic |
-	topic := Topico conNombre: 'Futbol' yDesc: 'Se habla de partidos de champions'.
+	topic := Topico newConNombre: 'Futbol' yDesc: 'Se habla de partidos de champions' . 
 	cuOOra agregarTopico: topic.
 	self assert: (cuOOra topicos includes: topic).
 ]
@@ -24,10 +24,12 @@ TestCuOOra >> testAgregarTopico [
 TestCuOOra >> testAgregarUsuario [
 	|user1 user2|
 	
-	user1 := Usuario conNombre: 'Pedro' yContraseña: 'pass1'.
-	user2 := Usuario conNombre: 'Juan' yContraseña: 'pass2'.
+	user1 := Usuario nuevoConNombre: 'Pedro' yContraseña: 'pass1' .
+	user2 := Usuario nuevoConNombre: 'Juan' yContraseña: 'pass2' .
 	cuOOra agregarUsuario: user1 ; agregarUsuario: user2.
 	self assert: (cuOOra usuarios includes:user1 ; includes:user2).
+	
+
 	
 ]
 
@@ -39,17 +41,17 @@ TestCuOOra >> testObtenerPreguntasDeTopico [
 	esta relacionada a los topicos creados (topic y topic2)
 	auxCollection 2 va a contener las preguntas 1 y 2 (preg1 y preg2) para despues comprobar
 	si el mensaje '#obtenerPreguntasDeTopico' devuelve la coleccion deseada (auxCollection2)"
-	
-	topic := Topico conNombre: 'Futbol' yDesc: 'Se habla de partidos de champions'.
-	topic2 := Topico conNombre: 'Deporte' yDesc: 'Se habla de deportes'.
+
+	topic := Topico newConNombre: 'Futbol' yDesc: 'Se habla de partidos de champions' .
+	topic2 := Topico newConNombre: 'Deporte' yDesc: 'Se habla de deportes' .
 	cuOOra agregarTopico: topic ; agregarTopico: topic2.
 	auxCollection := OrderedCollection new.
 	auxCollection add:topic ; add:topic2.
-	user1 := Usuario conNombre: 'Pedro' yContraseña: 'pass1'.
+	user1 := Usuario nuevoConNombre: 'Pedro' yContraseña: 'pass1'.
 	cuOOra agregarUsuario: user1.
-	preg1 := Pregunta conTitulo: 'Messi salva la seleccion' yTexto: 'El jugador del barcelona
+	preg1 := Pregunta newConTitulo: 'Messi salva la seleccion' yTexto: 'El jugador del barcelona
 	Liones Messi le metio 5 goles a brasiluski' relacionadoA: auxCollection.
-	preg2:= Pregunta conTitulo: 'Messi salva al barcelona' yTexto: 'El jugador del barcelona
+	preg2:= Pregunta newConTitulo: 'Messi salva al barcelona'  yTexto: 'El jugador del barcelona
 	Liones Messi le metio 5 goles a madrid' relacionadoA: auxCollection.
 	user1 agregarPregunta: preg1.
 	user1 agregarPregunta: preg2.

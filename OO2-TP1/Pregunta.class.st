@@ -11,13 +11,12 @@ Class {
 }
 
 { #category : #initialize }
-Pregunta class >> conTitulo: aTitle yTexto:aText relacionadoA:aTopicCollection [
+Pregunta class >> newConTitulo: aTitle yTexto:aText relacionadoA:aTopicCollection [
 	| instance |
 	instance := self new.
-	instance titulo: aTitle.
-	instance texto: aText.
-	instance topicos addAll: aTopicCollection .
-	^ instance
+	instance initializeConTitulo: aTitle Texto: aText topicos: aTopicCollection .
+	^ instance 
+	
 ]
 
 { #category : #accessing }
@@ -26,9 +25,11 @@ Pregunta >> agregarRespuesta: aAnswer [
 ]
 
 { #category : #initialize }
-Pregunta >> initialize [
+Pregunta >> initializeConTitulo: aTitle Texto: aText topicos: someTopics [
 	super initialize.
-	topicos := OrderedCollection new.
+	titulo := aTitle.
+	texto := aText. 
+	topicos := someTopics. 
 	respuestas := OrderedCollection new.
 ]
 
@@ -38,18 +39,8 @@ Pregunta >> respuestas [
 ]
 
 { #category : #accessing }
-Pregunta >> respuestas: anObject [
-	respuestas := anObject
-]
-
-{ #category : #accessing }
 Pregunta >> texto [
 	^ texto
-]
-
-{ #category : #accessing }
-Pregunta >> texto: anObject [
-	texto := anObject
 ]
 
 { #category : #accessing }
@@ -58,16 +49,6 @@ Pregunta >> titulo [
 ]
 
 { #category : #accessing }
-Pregunta >> titulo: anObject [
-	titulo := anObject
-]
-
-{ #category : #accessing }
 Pregunta >> topicos [
 	^ topicos
-]
-
-{ #category : #accessing }
-Pregunta >> topicos: anObject [
-	topicos := anObject
 ]
