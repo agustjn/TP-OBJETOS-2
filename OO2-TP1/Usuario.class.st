@@ -49,7 +49,10 @@ Usuario >> obtenerPreguntasDelTopico: aTopic [
 
 { #category : #accessing }
 Usuario >> preguntas [
-	^ preguntas
+	"Si tengo una coleccion devuelvo una coleccion, sino devuelvo el unico elemento."
+	preguntas size > 1
+		ifTrue: [ ^preguntas ].
+	^ preguntas first
 ]
 
 { #category : #accessing }

@@ -9,6 +9,20 @@ Class {
 }
 
 { #category : #accessing }
+CuOOra >> agregarPregunta: aQuestion deTopicos: aTopics delUsuario: aUser [
+	"Inicialmente se agregan los topicos nuevos a la coleccion de CuOOra,
+	 luego se envia al usuario correspondientepara que agregue la pregunta
+	 a su respectiva coleccion"
+	aTopics isCollection
+		ifTrue: [ aTopics do:[ :topic | topic ifNotNil:[ self agregarTopico: topic] ] ]
+		ifFalse: [ self agregarTopico: aTopics ].
+	(usuarios detect:[ :user | user == aUser ]) agregarPregunta: aQuestion.
+		
+	
+	
+]
+
+{ #category : #accessing }
 CuOOra >> agregarTopico: aTopic [
 	topicos add: aTopic.
 ]
@@ -46,6 +60,11 @@ CuOOra >> obtenerPreguntasDeTopico: aTopic [
 	^ coleccionPreguntas
 	
 
+]
+
+{ #category : #queries }
+CuOOra >> obtenerPreguntasDelUsuario: aUser [
+ 	 usuarios do: [ :user | user == aUser ifTrue: [ ^ aUser preguntas]  ]
 ]
 
 { #category : #queries }

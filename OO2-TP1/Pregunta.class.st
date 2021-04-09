@@ -50,5 +50,5 @@ Pregunta >> titulo [
 
 { #category : #accessing }
 Pregunta >> topicos [
-	^ topicos
+	^ topicos asOrderedCollection 
 ]
