@@ -39,6 +39,11 @@ Pregunta >> respuestas [
 ]
 
 { #category : #accessing }
+Pregunta >> respuestasOrdenadas [
+	^ (respuestas asSortedCollection: [ :r1 :r2 | r1 calcularPuntaje > r2 calcularPuntaje])
+]
+
+{ #category : #accessing }
 Pregunta >> texto [
 	^ texto
 ]

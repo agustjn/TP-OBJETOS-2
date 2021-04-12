@@ -32,6 +32,11 @@ CuOOra >> agregarUsuario: aUser [
 	usuarios add: aUser.
 ]
 
+{ #category : #queries }
+CuOOra >> calcularPuntajeDeRespuestas: someAnswers [
+	^ someAnswers sum: [ :a | a calcularPuntaje ] + (someAnswers size * 50)	
+]
+
 { #category : #initialization }
 CuOOra >> initialize [
 	usuarios := OrderedCollection new.
@@ -68,10 +73,22 @@ CuOOra >> obtenerPreguntasDelUsuario: aUser [
 ]
 
 { #category : #queries }
-CuOOra >> obtenerRespuestas: aQuestion [ 
-"esta mal, falta calcular puntaje"
-	^ aQuestion respuestas 
+CuOOra >> obtenerPuntajeDelUsuario: anUser [
+	anUser calcularPuntajeDePreguntas + (self calcularPuntajeDeRespuestas: (self obtenerRespuestasDelUsuario: anUser)) 
+	
+	
+]
 
+{ #category : #queries }
+CuOOra >> obtenerRespuestas: aQuestion [
+	^ aQuestion respuestasOrdenadas 
+]
+
+{ #category : #queries }
+CuOOra >> obtenerRespuestasDelUsuario: aUser [
+	(self obtenerPreguntas) do: [ :res | ^ (res select: [ :r | r perteneceA: aUser  ]) ] 
+
+	
 ]
 
 { #category : #queries }

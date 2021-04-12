@@ -31,6 +31,17 @@ Usuario >> agregarTopicoDeInteres: aTopic [
 	topicosDeInteres add: aTopic .
 ]
 
+{ #category : #accessing }
+Usuario >> borrarPregunta: aQuestion [
+"No se verifica si existe la pregunta, da error?"
+	preguntas remove: aQuestion
+]
+
+{ #category : #accessing }
+Usuario >> calcularPuntajeDePreguntas [
+	^ preguntas sum: [ :p | p calcularPuntaje ] + (preguntas size * 20)
+]
+
 { #category : #initialization }
 Usuario >> initializeConNombre: aName contraseña: aPass [ 
 	nombre:= aName .
