@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'cuOOra'
 	],
-	#category : #'OO2-TP1-Model'
+	#category : #'OO2-TP1-Tests'
 }
 
 { #category : #running }
