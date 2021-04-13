@@ -33,8 +33,9 @@ Usuario >> agregarTopicoDeInteres: aTopic [
 
 { #category : #accessing }
 Usuario >> borrarPregunta: aQuestion [
-"No se verifica si existe la pregunta, da error?"
-	preguntas remove: aQuestion
+	(preguntas anySatisfy: [ :p | p == aQuestion  ]) ifTrue: [preguntas remove: aQuestion]
+
+	
 ]
 
 { #category : #accessing }

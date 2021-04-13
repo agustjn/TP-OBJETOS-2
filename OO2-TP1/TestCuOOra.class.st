@@ -14,26 +14,22 @@ TestCuOOra >> setUp [
 
 { #category : #testing }
 TestCuOOra >> testAgregarPreguntaDeTopicosDelUsuario [
-	|anUser aQuestion topic|
-
+	| anUser aQuestion topic |
 	anUser := Usuario nuevoConNombre: 'Agustin' yContraseña: '123'.
-	
-	topic := Topico newConNombre: 'Futbol' yDesc: 'Se habla de partidos de champions' .
-	aQuestion := Pregunta newConTitulo: 'Autos' yTexto: 'Habia unos autos' relacionadoA: topic.
+	topic := Topico
+		newConNombre: 'Futbol'
+		yDesc: 'Se habla de partidos de champions'.
+	aQuestion := Pregunta
+		newConTitulo: 'Autos'
+		yTexto: 'Habia unos autos'
+		relacionadoA: topic.
 	cuOOra agregarUsuario: anUser.
 	cuOOra agregarTopico: topic.
-	
-	
 	cuOOra agregarPregunta: aQuestion deTopicos: topic delUsuario: anUser.
-	
-	
-	self assert: (cuOOra obtenerPreguntasDeTopico: topic) == aQuestion.
-	self assert: (cuOOra obtenerPreguntasDelUsuario: anUser) == aQuestion
-	
-	
-	
-	
-	
+	self
+		assert: (cuOOra obtenerPreguntasDeTopico: topic) first == aQuestion.
+	self
+		assert: (cuOOra obtenerPreguntasDelUsuario: anUser)  == aQuestion
 ]
 
 { #category : #testing }
