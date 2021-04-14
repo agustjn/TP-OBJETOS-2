@@ -93,13 +93,13 @@ CuOOra >> obtenerRespuestasDelUsuario: aUser [
 { #category : #queries }
 CuOOra >> preguntasRelevantesParaUsuario: aUser [
 	"Se considera relevante una pregunta cuando ésta pertenece a un tópico de interés para el usuario en cuestión o bien cuando fue realizada por alguno de los usuarios que sigue en la red social."
-	| preguntasR preguntasRs|
-	preguntasR := (aUser topicosDeInteres select: [ :topic | self obtenerPreguntasDeTopico: topic ]) asSet .
-	preguntasRs := (aUser seguidos do: [ :user | user preguntas ] ) asSet .
-	preguntasR addAll: preguntasRs .
-	^preguntasR 
-	
-	
+
+	| preguntasR preguntasRs |
+	preguntasR := (aUser topicosDeInteres
+		select: [ :topic | self obtenerPreguntasDeTopico: topic ]) asSet.
+	preguntasRs := (aUser seguidos do: [ :user | user preguntas ]) asSet.
+	preguntasR addAll: preguntasRs.
+	^ preguntasR 
 ]
 
 { #category : #accessing }

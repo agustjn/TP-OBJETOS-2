@@ -27,8 +27,11 @@ TestCuOOra >> testAgregarPreguntaDeTopicosDelUsuario [
 	cuOOra agregarTopico: topic.
 	cuOOra agregarPregunta: aQuestion deTopicos: topic delUsuario: anUser.
 	self
-		assert: (cuOOra obtenerPreguntasDeTopico: topic) first equals: aQuestion.
-	self assert: (cuOOra obtenerPreguntasDelUsuario: anUser) equals: aQuestion
+		assert: (cuOOra obtenerPreguntasDeTopico: topic) first
+		equals: aQuestion.
+	self
+		assert: ((cuOOra obtenerPreguntasDelUsuario: anUser) includes: aQuestion )
+		
 ]
 
 { #category : #testing }
@@ -63,6 +66,20 @@ TestCuOOra >> testAgregarUsuario [
 ]
 
 { #category : #testing }
+TestCuOOra >> testBorrarPregunta [
+	| preg topic user |
+	topic := Topico newConNombre: '' yDesc: ''.
+	preg := Pregunta newConTitulo: 'hola' yTexto: '' relacionadoA: topic.
+	user := Usuario nuevoConNombre: 'Pablo' yContraseña: '123'.
+	cuOOra agregarPregunta: preg deTopicos: topic delUsuario: user.
+	"self assert: (cuOOra obtenerPreguntas includes: preg)."
+	self assert: (user preguntas includes: preg).
+	user borrarPregunta: preg.
+	self assert: user preguntas size identicalTo: 0
+	"self assert: cuOOra obtenerPreguntas size identicalTo: 0"
+]
+
+{ #category : #testing }
 TestCuOOra >> testLikesAndDislikes [
 	| pregunta topico reaccion1 reaccion2 user |
 	user := Usuario nuevoConNombre: 'Pedro' yContraseña: '123'.
@@ -74,11 +91,11 @@ TestCuOOra >> testLikesAndDislikes [
 	reaccion1 := Reaccion newConEstado: true Usuario: user.
 	pregunta agregarReaccion: reaccion1.
 	reaccion2 := Reaccion newConEstado: false Usuario: user.
-	self assert: pregunta likes equals: 1.
-	self assert: pregunta dislikes equals: 0 .
-	pregunta agregarReaccion: reaccion2 .
-	self assert: pregunta likes equals: 0 .
-	self assert: pregunta dislikes equals: 1 .
+	self assert: pregunta likes identicalTo: 1.
+	self assert: pregunta dislikes identicalTo: 0.
+	pregunta agregarReaccion: reaccion2.
+	self assert: pregunta likes identicalTo: 0.
+	self assert: pregunta dislikes identicalTo: 1
 ]
 
 { #category : #testing }
@@ -109,6 +126,58 @@ TestCuOOra >> testObtenerPreguntasDeTopico [
 
 	
 
+]
+
+{ #category : #testing }
+TestCuOOra >> testObtenerPreguntasRelevantesParaUsuario [
+	| user user2 topic1 topic2 topic3 preg1 preg2 preg3 |
+	user := Usuario nuevoConNombre: 'Juan' yContraseña: '123'.
+	user2 := Usuario nuevoConNombre: 'Pedro' yContraseña: '123'.
+	topic1 := Topico newConNombre: 'Futbol' yDesc: ''.
+	topic2 := Topico newConNombre: 'Basquet' yDesc: ''.
+	topic3 := Topico newConNombre: 'Informatica' yDesc: ''.
+	user agregarTopicoDeInteres: topic1.
+	preg1 := Pregunta
+		newConTitulo: 'Juega Argentina?'
+		yTexto: ''
+		relacionadoA: topic1.
+	preg2 := Pregunta
+		newConTitulo: 'Campazzo a la NBA?'
+		yTexto: ''
+		relacionadoA: topic2.
+	preg3 := Pregunta
+		newConTitulo: 'Algun desarollador?'
+		yTexto: ''
+		relacionadoA: topic3.
+	user2 agregarPregunta: preg3.
+	user seguirUsuario: user2.
+	self
+		assert: ((cuOOra preguntasRelevantesParaUsuario: user) includes: preg1).
+	self
+		assert: ((cuOOra preguntasRelevantesParaUsuario: user) includes: preg3)
+]
+
+{ #category : #testing }
+TestCuOOra >> testRespuestasAPregunta [
+	| preg res1 res2 topic |
+	topic := Topico newConNombre: '' yDesc: ''.
+	preg := Pregunta newConTitulo: 'Hola?' yTexto: '' relacionadoA: topic.
+	res1 := Respuesta newCon: 'buenas'.
+	res2 := Respuesta newCon: 'buen dia'.
+	preg agregarRespuesta: res1.
+	preg agregarRespuesta: res2.
+	self assert: (preg respuestas includes: res1).
+	self assert: (preg respuestas includes: res2).
+	self assert: preg respuestas size identicalTo: 2
+]
+
+{ #category : #testing }
+TestCuOOra >> testUsuarioAgregarTopicoDeInt [
+	|user topic|
+	user := Usuario nuevoConNombre: 'Pedro' yContraseña: '123' .
+	topic := Topico newConNombre: 'Futbol' yDesc: '' .
+	user agregarTopicoDeInteres: topic .
+	self assert: (user topicosDeInteres includes: topic).
 ]
 
 { #category : #testing }
