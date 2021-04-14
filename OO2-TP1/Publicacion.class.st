@@ -10,12 +10,12 @@ Class {
 	#category : #'OO2-TP1-Model'
 }
 
-{ #category : #accessing }
+{ #category : #private }
 Publicacion >> agregarDislike [
 	dislikes := dislikes + 1
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 Publicacion >> agregarLike [
 	likes := likes + 1
 ]
@@ -25,12 +25,13 @@ Publicacion >> agregarReaccion: aReaction [
 	"Recibe una reaccion, la agrega, y si el usuario ya habia reaccionado antes, borra la anterior"
 
 	| reaccion |
-	self aplicarReaccion: aReaction.
 	reaccion := self buscarReaccion: aReaction.
-	reaccion ifNotNil: [ self quitarReaccion: reaccion ]
+	reaccion ifNotNil: [ self quitarReaccion: reaccion .
+								self aplicarReaccion: aReaction  ]
+	ifNil: [ self aplicarReaccion: aReaction  ]
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 Publicacion >> aplicarReaccion: aReaction [
 	aReaction estado
 		ifTrue: [ self agregarLike ]
@@ -38,8 +39,9 @@ Publicacion >> aplicarReaccion: aReaction [
 		reacciones add: aReaction 
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 Publicacion >> buscarReaccion: aReaction [
+"cambiar nombrea  reaccion de un mismo user"
 	| r |
 	r := reacciones
 		detect: [ :reaction | reaction mismoUsuario: aReaction usuario ]
@@ -52,6 +54,11 @@ Publicacion >> calcularPuntaje [
 	^ likes - dislikes
 ]
 
+{ #category : #accessing }
+Publicacion >> dislikes [
+	^ dislikes
+]
+
 { #category : #initialization }
 Publicacion >> initialize [
 	likes:=0.
@@ -62,16 +69,21 @@ Publicacion >> initialize [
 ]
 
 { #category : #accessing }
+Publicacion >> likes [
+	^ likes 
+]
+
+{ #category : #private }
 Publicacion >> quitarDislike [
 	dislikes := dislikes - 1
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 Publicacion >> quitarLike [
 	likes := likes - 1
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 Publicacion >> quitarReaccion: aReaction [
 	aReaction estado
 		ifTrue: [ self quitarLike ]

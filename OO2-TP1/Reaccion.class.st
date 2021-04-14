@@ -18,11 +18,6 @@ Reaccion class >> newConEstado: aCondition Usuario: aUser [
 ]
 
 { #category : #accessing }
-Reaccion >> cambiarEstado: aCondition [
-	estado := aCondition 
-]
-
-{ #category : #accessing }
 Reaccion >> estado [ 
 	^estado
 ]

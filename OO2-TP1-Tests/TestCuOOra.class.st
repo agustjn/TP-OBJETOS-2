@@ -27,9 +27,18 @@ TestCuOOra >> testAgregarPreguntaDeTopicosDelUsuario [
 	cuOOra agregarTopico: topic.
 	cuOOra agregarPregunta: aQuestion deTopicos: topic delUsuario: anUser.
 	self
-		assert: (cuOOra obtenerPreguntasDeTopico: topic) first == aQuestion.
-	self
-		assert: (cuOOra obtenerPreguntasDelUsuario: anUser)  == aQuestion
+		assert: (cuOOra obtenerPreguntasDeTopico: topic) first equals: aQuestion.
+	self assert: (cuOOra obtenerPreguntasDelUsuario: anUser) equals: aQuestion
+]
+
+{ #category : #testing }
+TestCuOOra >> testAgregarRespuesta [
+	|respuesta pregunta topico|
+	respuesta := Respuesta newCon: 'Tenes razon'.
+	topico := Topico newConNombre: 'Futbol' yDesc: 'Se habla de futbol' .
+	pregunta:= Pregunta newConTitulo: 'Messi' yTexto: 'Messi es el mejor'  relacionadoA: topico .
+	pregunta agregarRespuesta: respuesta .
+	self assert: (pregunta respuestas includes: respuesta) .
 ]
 
 { #category : #testing }
@@ -51,6 +60,25 @@ TestCuOOra >> testAgregarUsuario [
 	
 
 	
+]
+
+{ #category : #testing }
+TestCuOOra >> testLikesAndDislikes [
+	| pregunta topico reaccion1 reaccion2 user |
+	user := Usuario nuevoConNombre: 'Pedro' yContraseña: '123'.
+	topico := Topico newConNombre: 'Futbol' yDesc: 'Se habla de futbol'.
+	pregunta := Pregunta
+		newConTitulo: 'Messi'
+		yTexto: 'Messi es el mejor actual'
+		relacionadoA: topico.
+	reaccion1 := Reaccion newConEstado: true Usuario: user.
+	pregunta agregarReaccion: reaccion1.
+	reaccion2 := Reaccion newConEstado: false Usuario: user.
+	self assert: pregunta likes equals: 1.
+	self assert: pregunta dislikes equals: 0 .
+	pregunta agregarReaccion: reaccion2 .
+	self assert: pregunta likes equals: 0 .
+	self assert: pregunta dislikes equals: 1 .
 ]
 
 { #category : #testing }
@@ -97,4 +125,13 @@ TestCuOOra >> testUsuarioNombreConPassword [
 
 { #category : #testing }
 TestCuOOra >> testUsuarioNombrePassword [
+]
+
+{ #category : #testing }
+TestCuOOra >> testUsuarioSigueAOtro [
+	| user1 user2 |
+	user1 := Usuario nuevoConNombre: 'Pedro' yContraseña: '123'.
+	user2 := Usuario nuevoConNombre: 'Juan' yContraseña: '123'.
+	user1 seguirUsuario:  user2.
+	self assert: (user1 seguidos includes: user2)
 ]
