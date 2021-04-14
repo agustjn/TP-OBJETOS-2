@@ -9,17 +9,18 @@ Class {
 }
 
 { #category : #initialize }
-Respuesta class >> newCon: aText [
+Respuesta class >> newCon: aText Usuario: anUser [
 	| instance |
 	instance := self new.
-	instance initializeCon: aText .
+	instance initializeCon: aText Usuario: anUser .
 	^ instance
 ]
 
 { #category : #initialize }
-Respuesta >> initializeCon: aText [
+Respuesta >> initializeCon: aText Usuario: anUser [
 	super initialize.
-	text := aText 
+	text := aText.
+	usuario := anUser
 ]
 
 { #category : #queries }

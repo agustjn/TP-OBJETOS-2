@@ -46,7 +46,8 @@ CuOOra >> agregarUsuario: aUser [
 
 { #category : #queries }
 CuOOra >> calcularPuntajeDeRespuestas: someAnswers [
-	^ someAnswers sum: [ :a | a calcularPuntaje ] + (someAnswers size * 50)	
+	^ (someAnswers
+		sum: [ :a | a calcularPuntaje ]) + (someAnswers size * 50)
 ]
 
 { #category : #initialization }
@@ -65,9 +66,10 @@ CuOOra >> obtenerAutorDePregunta: aQuestion [
 
 { #category : #queries }
 CuOOra >> obtenerPreguntas [
-	
-	usuarios do: [ :user | ^(user preguntas collect: [:preg| preg] )] .
-
+	| preg |
+	preg := OrderedCollection new.
+	usuarios do: [ :user | preg addAll: user preguntas  ].
+	^ preg
 ]
 
 { #category : #queries }
@@ -94,9 +96,10 @@ CuOOra >> obtenerPreguntasDelUsuario: aUser [
 
 { #category : #queries }
 CuOOra >> obtenerPuntajeDelUsuario: anUser [
-	anUser calcularPuntajeDePreguntas + (self calcularPuntajeDeRespuestas: (self obtenerRespuestasDelUsuario: anUser)) 
-	
-	
+	^ (anUser calcularPuntajeDePreguntas
+		+
+			(self
+				calcularPuntajeDeRespuestas: (self obtenerRespuestasDelUsuario: anUser)))
 ]
 
 { #category : #queries }
@@ -106,9 +109,11 @@ CuOOra >> obtenerRespuestas: aQuestion [
 
 { #category : #queries }
 CuOOra >> obtenerRespuestasDelUsuario: aUser [
-	(self obtenerPreguntas) do: [ :res | ^ (res select: [ :r | r perteneceA: aUser  ]) ] 
-
-	
+	|res|
+	res :=OrderedCollection new .
+	self obtenerPreguntas
+		do: [ :p | res addAll: (p respuestas select: [ :r | r perteneceA: aUser ])] .
+	^res
 ]
 
 { #category : #queries }

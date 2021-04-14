@@ -40,7 +40,7 @@ Usuario >> borrarPregunta: aQuestion [
 
 { #category : #accessing }
 Usuario >> calcularPuntajeDePreguntas [
-	^ preguntas sum: [ :p | p calcularPuntaje ] + (preguntas size * 20)
+	^ (preguntas sum: [ :p | p calcularPuntaje ]) + (preguntas size * 20)
 ]
 
 { #category : #queries }
