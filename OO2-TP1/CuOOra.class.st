@@ -5,8 +5,21 @@ Class {
 		'topicos',
 		'usuarios'
 	],
+	#classInstVars : [
+		'soleInstance'
+	],
 	#category : #'OO2-TP1-Model'
 }
+
+{ #category : #accessing }
+CuOOra class >> clearSoleInstance [ 
+	soleInstance := nil.
+]
+
+{ #category : #accessing }
+CuOOra class >> soleInstance [ 
+	^ soleInstance ifNil: [ soleInstance := self new ]
+]
 
 { #category : #accessing }
 CuOOra >> agregarPregunta: aQuestion deTopicos: aTopics delUsuario: aUser [
@@ -105,6 +118,13 @@ CuOOra >> preguntasRelevantesParaUsuario: aUser [
 { #category : #accessing }
 CuOOra >> topicos [
 	^ topicos
+]
+
+{ #category : #accessing }
+CuOOra >> usuarioNombre: aUsername conPassword: aPassword [
+	^ usuarios
+		detect: [ :user | user nombre = aUsername & (user password = aPassword) ]
+		ifNone:[nil]
 ]
 
 { #category : #accessing }

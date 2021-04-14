@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'nombre',
-		'contraseña',
+		'password',
 		'fechaYhora',
 		'seguidos',
 		'topicosDeInteres',
@@ -43,10 +43,15 @@ Usuario >> calcularPuntajeDePreguntas [
 	^ preguntas sum: [ :p | p calcularPuntaje ] + (preguntas size * 20)
 ]
 
+{ #category : #accessing }
+Usuario >> fechaYhora [
+	^ fechaYhora
+]
+
 { #category : #initialization }
 Usuario >> initializeConNombre: aName contraseña: aPass [ 
 	nombre:= aName .
-	contraseña := aPass.
+	password := aPass.
 	fechaYhora := DateAndTime today .
 	seguidos := OrderedCollection new.
 	topicosDeInteres := OrderedCollection new.
@@ -54,9 +59,19 @@ Usuario >> initializeConNombre: aName contraseña: aPass [
 	
 ]
 
+{ #category : #accessing }
+Usuario >> nombre [
+	^ nombre
+]
+
 { #category : #queries }
 Usuario >> obtenerPreguntasDelTopico: aTopic [
 	^ preguntas select: [ :preg | preg topicos includes: aTopic ]
+]
+
+{ #category : #accessing }
+Usuario >> password [
+	^ password
 ]
 
 { #category : #accessing }
