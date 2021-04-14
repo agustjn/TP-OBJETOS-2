@@ -43,6 +43,16 @@ Usuario >> calcularPuntajeDePreguntas [
 	^ preguntas sum: [ :p | p calcularPuntaje ] + (preguntas size * 20)
 ]
 
+{ #category : #queries }
+Usuario >> existePregunta: aQuestion [
+	"Si la pregunta es mia, retorno true para que CuOOra sepa
+	 que soy el autor de la pregunta que recibo"
+	^preguntas select: [ :question | question == aQuestion ]
+				
+				
+		
+]
+
 { #category : #accessing }
 Usuario >> fechaYhora [
 	^ fechaYhora
@@ -62,6 +72,12 @@ Usuario >> initializeConNombre: aName contraseña: aPass [
 { #category : #accessing }
 Usuario >> nombre [
 	^ nombre
+]
+
+{ #category : #queries }
+Usuario >> obtenerPregunta: aQuestion [
+	^preguntas detect: [ :question | question == aQuestion ]
+				  ifNone:[^nil]
 ]
 
 { #category : #queries }

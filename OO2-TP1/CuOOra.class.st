@@ -56,6 +56,14 @@ CuOOra >> initialize [
 ]
 
 { #category : #queries }
+CuOOra >> obtenerAutorDePregunta: aQuestion [
+	^usuarios select: [ :user | user existePregunta: aQuestion ] 
+		
+				
+
+]
+
+{ #category : #queries }
 CuOOra >> obtenerPreguntas [
 	
 	usuarios do: [ :user | ^(user preguntas collect: [:preg| preg] )] .
@@ -109,10 +117,11 @@ CuOOra >> preguntasRelevantesParaUsuario: aUser [
 
 	| preguntasR preguntasRs |
 	preguntasR := (aUser topicosDeInteres
-		select: [ :topic | self obtenerPreguntasDeTopico: topic ]) asSet.
+		collect: [ :topic | self obtenerPreguntasDeTopico: topic ]) asSet.
 	preguntasRs := (aUser seguidos do: [ :user | user preguntas ]) asSet.
-	preguntasR addAll: preguntasRs.
-	^ preguntasR 
+	preguntasRs do: [ :item | preguntasR add:item ].
+	"preguntasR addAll: preguntasRs."
+	^ preguntasR
 ]
 
 { #category : #accessing }
