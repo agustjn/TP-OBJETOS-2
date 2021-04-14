@@ -82,3 +82,19 @@ TestCuOOra >> testObtenerPreguntasDeTopico [
 	
 
 ]
+
+{ #category : #testing }
+TestCuOOra >> testUsuarioNombreConPassword [
+	| anUser anUser2 |
+	anUser := Usuario nuevoConNombre: 'juan' yContraseña: '123'.
+	anUser2 := Usuario nuevoConNombre: 'pedro' yContraseña: '456'.
+	cuOOra agregarUsuario: anUser.
+	cuOOra agregarUsuario: anUser2.
+	self assert:(cuOOra usuarioNombre: 'juan' conPassword: '123') == anUser.
+	self assert:(cuOOra usuarioNombre: 'pedro' conPassword: '456') == anUser2.
+	self assert:(cuOOra usuarioNombre: 'asd' conPassword: '5565') == nil.
+]
+
+{ #category : #testing }
+TestCuOOra >> testUsuarioNombrePassword [
+]
