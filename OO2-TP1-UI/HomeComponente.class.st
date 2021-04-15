@@ -32,39 +32,29 @@ HomeComponente >> renderizarHeading: aCanvas [
 HomeComponente >> renderizarItem: aCanvas de: aQuestion [
 	aCanvas anchor
 		callback: [  ];
-		with: aQuestion titulo.	"aca habia un first pero no se xq"
-	"aCanvas
+		with: aQuestion titulo.
+	aCanvas
 		paragraph: [ aCanvas
 				label:
 					'Realizada por: '
-						, (self model obtenerAutorDePregunta: aQuestion) nombre ]"
+						, (self model obtenerAutorDePregunta: aQuestion) nombre ].
+	aCanvas space.
+	aCanvas anchor
+		callback: [  ];
+		with: aQuestion respuestas size asString , ' respuestas'
 ]
 
 { #category : #rendering }
 HomeComponente >> renderizarPreguntas: aCanvas [
-	| questions p |
+	| questions |
 	questions := self model
 		preguntasRelevantesParaUsuario: self session user.
 	aCanvas heading: 'Ultimas preguntas'.
-	p := Pregunta newConTitulo: 'Hola' yTexto: 'as' relacionadoA: nil.
-	questions add: p.
 	aCanvas
 		unorderedList: [ questions
-				do: [ :pregunta | 
-					aCanvas
-						listItem: [ aCanvas anchor
-								callback: [  ];
-								with: pregunta titulo ] ] ].
+				do:
+					[ :pregunta | aCanvas listItem:  [self renderizarItem: aCanvas de: pregunta] ] ].
 	aCanvas anchor
-		callback: [ self createNewQuestion  ];
+		callback: [ self createNewQuestion ];
 		with: [ aCanvas button: 'Nueva pregunta' ]
-]
-
-{ #category : #styles }
-HomeComponente >> style [
-	^ ' 
-	    *  { background:lightgreen ;
-	 			 }
-		 div  { background: green }
-	'
 ]

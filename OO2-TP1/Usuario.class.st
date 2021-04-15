@@ -47,10 +47,8 @@ Usuario >> calcularPuntajeDePreguntas [
 Usuario >> existePregunta: aQuestion [
 	"Si la pregunta es mia, retorno true para que CuOOra sepa
 	 que soy el autor de la pregunta que recibo"
-	^preguntas select: [ :question | question == aQuestion ]
-				
-				
-		
+
+	 ^ preguntas anySatisfy: [:question | question == aQuestion ]
 ]
 
 { #category : #accessing }
