@@ -33,22 +33,24 @@ HomeComponente >> renderizarItem: aCanvas de: aQuestion [
 	aCanvas anchor
 		callback: [  ];
 		with: aQuestion titulo.
-	aCanvas paragraph .
-	self renderizarTopicos:aQuestion topicos conCanvas: aCanvas .
+	aCanvas paragraph.
+	self renderizarTopicos: aQuestion topicos conCanvas: aCanvas.
 	aCanvas
-		paragraph: [ aCanvas
-				label:
-					'Realizada por: '
-						, (self model obtenerAutorDePregunta: aQuestion) nombre ].
+		paragraph: [ aCanvas label: 'Realizada por: '.
+			aCanvas anchor
+				callback: [ self call: (PerfilUserComponent of: (self model obtenerAutorDePregunta: aQuestion)) ];
+				with: (self model obtenerAutorDePregunta: aQuestion) nombre ].
 	aCanvas space.
 	aCanvas anchor
 		callback: [  ];
 		with: aQuestion respuestas size asString , ' respuestas'.
-		aCanvas paragraph.
-	aCanvas label with: aQuestion likes asString, ' likes | ' , aQuestion dislikes asString, ' dislikes'.
 	aCanvas paragraph.
-	self renderizarLikes:aCanvas dePregunta: aQuestion.
-		
+	aCanvas label
+		with:
+			aQuestion likes asString , ' likes | ' , aQuestion dislikes asString
+				, ' dislikes'.
+	aCanvas paragraph.
+	self renderizarLikes: aCanvas dePregunta: aQuestion
 ]
 
 { #category : #rendering }
