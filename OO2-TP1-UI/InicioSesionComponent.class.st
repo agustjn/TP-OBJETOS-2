@@ -48,9 +48,12 @@ InicioSesionComponent >> password: anObject [
 
 { #category : #'event handler' }
 InicioSesionComponent >> procederCon: anUser [
+	| q |
 	"Si el usuario existe en el sistema, se llama a este metodo para que se 
 	recuerde la sesion del usuario y se renderize el componente Home"
 	self session user: anUser.
+	q := self session user.
+	self halt.
 	self call: HomeComponente new.
 ]
 
