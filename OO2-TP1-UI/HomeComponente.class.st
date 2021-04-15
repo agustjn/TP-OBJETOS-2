@@ -41,7 +41,8 @@ HomeComponente >> renderizarItem: aCanvas de: aQuestion [
 	aCanvas space.
 	aCanvas anchor
 		callback: [  ];
-		with: aQuestion respuestas size asString , ' respuestas'
+		with: aQuestion respuestas size asString , ' respuestas' 
+	
 ]
 
 { #category : #rendering }
