@@ -87,12 +87,14 @@ HomeComponente >> renderizarPreguntas: aCanvas [
 		preguntasRelevantesParaUsuario: self session user.
 	aCanvas heading: 'Ultimas preguntas'.
 	aCanvas
+	
 		unorderedList: [ questions
 				do:
-					[ :pregunta | aCanvas listItem:  [ self renderizarItem: aCanvas de: pregunta ] ] ].
+					 [ :pregunta | aCanvas listItem:  [ aCanvas render: (QuestionComponent of: pregunta andParent:self).  ]  ] ]
+					"[ :pregunta | aCanvas listItem:  [ self renderizarItem: aCanvas de: pregunta ] ] ]".
 	aCanvas anchor
 		callback: [ self createNewQuestion ];
-		with: [ aCanvas button: 'Nueva pregunta' ]
+		with: [ aCanvas button: 'Nueva pregunta' ] 
 ]
 
 { #category : #rendering }
