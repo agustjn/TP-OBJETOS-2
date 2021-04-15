@@ -53,7 +53,6 @@ InicioSesionComponent >> procederCon: anUser [
 	recuerde la sesion del usuario y se renderize el componente Home"
 	self session user: anUser.
 	q := self session user.
-	self halt.
 	self call: HomeComponente new.
 ]
 
