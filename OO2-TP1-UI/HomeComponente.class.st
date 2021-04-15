@@ -1,8 +1,13 @@
 Class {
 	#name : #HomeComponente,
-	#superclass : #WAComponent,
+	#superclass : #WebComponent,
 	#category : #'OO2-TP1-UI'
 }
+
+{ #category : #rendering }
+HomeComponente >> createNewQuestion [
+	self call: NewQuestionComponent new 
+]
 
 { #category : #accessing }
 HomeComponente >> model [
@@ -11,47 +16,48 @@ HomeComponente >> model [
 
 { #category : #rendering }
 HomeComponente >> renderContentOn: aCanvas [
+	self renderNavOn: aCanvas.
 	aCanvas div with: [ self renderizarHeading: aCanvas ].
 	aCanvas horizontalRule.
 	aCanvas div with: [ self renderizarPreguntas: aCanvas ]
-	
-	
 ]
 
 { #category : #rendering }
 HomeComponente >> renderizarHeading: aCanvas [
-	aCanvas heading with:'CuOOra' ; level: 4.
-							  aCanvas horizontalRule.
-							  aCanvas label:'Bienvenido '  , self session user nombre. 
-							  aCanvas horizontalRule.
-							  aCanvas anchor
-				   						callback: [ self session user: nil.
-														self answer ] ; 
-									   with:'Cerrar sesion' ;
-									   class:'logout'.
+	aCanvas label: 'Bienvenido ' , self session user nombre.
+	aCanvas horizontalRule.
 ]
 
 { #category : #rendering }
-HomeComponente >> renderizarItem:aCanvas de:aQuestion [
-	aCanvas anchor 
-					callback: [  ] ;
-					with: (aQuestion first) titulo.
-	"aCanvas paragraph: [ aCanvas label:'Realizada por: ' , ( self model obtenerAutorDePregunta:aQuestion first) nombre  ] "
-	
+HomeComponente >> renderizarItem: aCanvas de: aQuestion [
+	aCanvas anchor
+		callback: [  ];
+		with: aQuestion titulo.	"aca habia un first pero no se xq"
+	"aCanvas
+		paragraph: [ aCanvas
+				label:
+					'Realizada por: '
+						, (self model obtenerAutorDePregunta: aQuestion) nombre ]"
 ]
 
 { #category : #rendering }
 HomeComponente >> renderizarPreguntas: aCanvas [
-	| questions |
-	questions := self model preguntasRelevantesParaUsuario:(self session user).
-	aCanvas heading:'Ultimas preguntas'.
-	aCanvas unorderedList:[ questions 
-										do: [ :pregunta | aCanvas listItem:( self renderizarItem:aCanvas de:pregunta) ] 
-		
-								 ]
-	
-	
-	
+	| questions p |
+	questions := self model
+		preguntasRelevantesParaUsuario: self session user.
+	aCanvas heading: 'Ultimas preguntas'.
+	p := Pregunta newConTitulo: 'Hola' yTexto: 'as' relacionadoA: nil.
+	questions add: p.
+	aCanvas
+		unorderedList: [ questions
+				do: [ :pregunta | 
+					aCanvas
+						listItem: [ aCanvas anchor
+								callback: [  ];
+								with: pregunta titulo ] ] ].
+	aCanvas anchor
+		callback: [ self createNewQuestion  ];
+		with: [ aCanvas button: 'Nueva pregunta' ]
 ]
 
 { #category : #styles }

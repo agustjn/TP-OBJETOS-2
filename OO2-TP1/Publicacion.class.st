@@ -59,6 +59,11 @@ Publicacion >> dislikes [
 	^ dislikes
 ]
 
+{ #category : #accessing }
+Publicacion >> horaYFecha [
+	^horaYfecha 
+]
+
 { #category : #initialization }
 Publicacion >> initialize [
 	likes:=0.

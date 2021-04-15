@@ -58,10 +58,7 @@ CuOOra >> initialize [
 
 { #category : #queries }
 CuOOra >> obtenerAutorDePregunta: aQuestion [
-	^usuarios select: [ :user | user existePregunta: aQuestion ] 
-		
-				
-
+	^ usuarios detect: [ :user | user existePregunta: aQuestion ]
 ]
 
 { #category : #queries }
@@ -117,16 +114,15 @@ CuOOra >> obtenerRespuestasDelUsuario: aUser [
 ]
 
 { #category : #queries }
-CuOOra >> preguntasRelevantesParaUsuario: aUser [
+CuOOra >> preguntasRelevantesParaUsuario: anUser [
 	"Se considera relevante una pregunta cuando ésta pertenece a un tópico de interés para el usuario en cuestión o bien cuando fue realizada por alguno de los usuarios que sigue en la red social."
 
-	| preguntasR preguntasRs |
-	preguntasR := (aUser topicosDeInteres
-		collect: [ :topic | self obtenerPreguntasDeTopico: topic ]) asSet.
-	preguntasRs := (aUser seguidos do: [ :user | user preguntas ]) asSet.
-	preguntasRs do: [ :item | preguntasR add:item ].
-	"preguntasR addAll: preguntasRs."
-	^ preguntasR
+	| preguntasR |
+	preguntasR := Set new.
+	anUser topicosDeInteres
+		do: [ :topic | preguntasR addAll: (self obtenerPreguntasDeTopico: topic) ].
+	anUser seguidos do: [ :user | preguntasR addAll: user preguntas ].
+	^ (preguntasR asSortedCollection: [ :preg1 :preg2 | preg1 horaYFecha > preg2 horaYFecha  ] )
 ]
 
 { #category : #accessing }
