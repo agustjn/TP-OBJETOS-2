@@ -35,8 +35,27 @@ CuOOra >> agregarPregunta: aQuestion deTopicos: aTopics delUsuario: aUser [
 ]
 
 { #category : #accessing }
+CuOOra >> agregarPreguntaConTitulo: aTitle descripcion: aDesc topicos: someTopicsString usuario: anUser [
+	| topicosAgregados t |
+	topicosAgregados := OrderedCollection new.
+	someTopicsString
+		do: [ :topicS | 
+			(t := (self existe: topicS))
+				ifNotNil: [ topicosAgregados add: t ]
+				ifNil: [ topicosAgregados add: (Topico newConNombre: topicS yDesc: 'vacia').
+					self agregarTopico: topicosAgregados last ] ].
+	anUser
+		agregarPregunta:
+			(Pregunta
+				newConTitulo: aTitle
+				yTexto: aDesc
+				relacionadoA: topicosAgregados)
+]
+
+{ #category : #accessing }
 CuOOra >> agregarTopico: aTopic [
-	topicos add: aTopic.
+	(topicos anySatisfy: [ :t | t nombre = aTopic nombre ])
+		ifFalse: [ topicos add: aTopic ]
 ]
 
 { #category : #accessing }
@@ -48,6 +67,15 @@ CuOOra >> agregarUsuario: aUser [
 CuOOra >> calcularPuntajeDeRespuestas: someAnswers [
 	^ (someAnswers
 		sum: [ :a | a calcularPuntaje ]) + (someAnswers size * 50)
+]
+
+{ #category : #accessing }
+CuOOra >> existe: aString [
+
+	^ topicos
+		detect: [ :t | t mismoNombre: aString ]
+		ifNone: [ nil ].
+	
 ]
 
 { #category : #initialization }

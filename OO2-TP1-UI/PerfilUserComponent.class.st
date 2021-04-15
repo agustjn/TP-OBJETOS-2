@@ -65,8 +65,9 @@ PerfilUserComponent >> renderizarPreguntas: aCanvas [
 	questions := user preguntas.
 	aCanvas
 		unorderedList: [ questions
-				do:
-					[ :question | aCanvas listItem: [ (QuestionComponent of: question)renderContentOn: aCanvas ] ] ]
+				do: [ :question | 
+					aCanvas
+						listItem: [ (QuestionComponent of: question andParent: self) renderContentOn: aCanvas ] ] ]
 ]
 
 { #category : #rendering }

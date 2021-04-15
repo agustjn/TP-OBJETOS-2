@@ -14,10 +14,14 @@ WebComponent >> renderNavOn: aCanvas [
 	aCanvas heading
 		with: 'CuOOra';
 		level: 4.
-	aCanvas horizontalRule.
 	aCanvas anchor
+		callback: [ self call: HomeComponente new ];
+		with: 'home'.
+	aCanvas paragraph.
+	 aCanvas anchor
 		callback: [ self session user: nil.
 			self answer ];
-		with: 'Cerrar sesion';
-		class: 'logout'
+		with: 'Log out';
+		class: 'logout'.
+	aCanvas horizontalRule
 ]

@@ -28,6 +28,11 @@ Topico >> initializeConNombre: aName descripcion: aDesc [
 ]
 
 { #category : #accessing }
+Topico >> mismoNombre: nom [
+	^ nombre = nom
+]
+
+{ #category : #accessing }
 Topico >> nombre [
 	^ nombre
 ]

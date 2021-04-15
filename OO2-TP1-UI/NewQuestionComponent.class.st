@@ -4,27 +4,27 @@ Class {
 	#instVars : [
 		'titulo',
 		'texto',
-		'topicos'
+		'topicoText'
 	],
 	#category : #'OO2-TP1-UI'
 }
 
 { #category : #rendering }
 NewQuestionComponent >> publicar [
-	| pregunta |
-	pregunta := Pregunta
-		newConTitulo: titulo
-		yTexto: texto
-		relacionadoA: topicos.
+	| tops |
+	topicoText parseLiterals. 
+	tops := topicoText splitOn: ','.
 	self model
-		agregarPregunta: pregunta
-		deTopicos: topicos
-		delUsuario: self session user.
+		agregarPreguntaConTitulo: titulo
+		descripcion: texto
+		topicos: tops
+		usuario: self session user.
 	self answer
 ]
 
 { #category : #rendering }
 NewQuestionComponent >> renderContentOn: aCanvas [
+	self renderNavOn: aCanvas .
 	aCanvas strong: 'Crear Pregunta'.
 	aCanvas
 		form: [ self renderInputElementsOn: aCanvas.
@@ -35,10 +35,12 @@ NewQuestionComponent >> renderContentOn: aCanvas [
 NewQuestionComponent >> renderInputElementsOn: aCanvas [
 	aCanvas label: 'Titulo'.
 	aCanvas paragraph: [ aCanvas textInput on: #titulo of: self ].
-	aCanvas label: 'Descripcion'.
-	aCanvas paragraph: [ aCanvas textInput on: #texto of: self ].
-	aCanvas label: 'Topico/s'.
-	aCanvas paragraph: [ aCanvas textInput on: #topicos of: self ]
+	aCanvas label: 'Desarrollo'.
+	aCanvas paragraph: [ (aCanvas textArea on: #texto of: self )
+								columns: 80;
+								rows: 5 ].
+	aCanvas label: 'Topicos/s (separado por comas)'.
+	aCanvas paragraph: [ aCanvas textInput on: #topicoText of: self ]
 ]
 
 { #category : #rendering }
@@ -69,11 +71,11 @@ NewQuestionComponent >> titulo: aTitle [
 ]
 
 { #category : #rendering }
-NewQuestionComponent >> topicos [
-	^topicos
+NewQuestionComponent >> topicoText [
+	^topicoText 
 ]
 
 { #category : #rendering }
-NewQuestionComponent >> topicos: aTopic [
-	topicos := aTopic 
+NewQuestionComponent >> topicoText: aTopicText [
+	topicoText := aTopicText 
 ]

@@ -9,14 +9,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-QuestionComponent class >> of: aQuestion [
-	| instance |
-	instance := self new.
-	instance aQuestion: aQuestion.
-	^instance
-]
-
-{ #category : #'instance creation' }
 QuestionComponent class >> of: aQuestion andParent: aParent [
 	| instance |
 	instance := self new.
@@ -47,7 +39,7 @@ QuestionComponent >> parent: anObject [
 
 { #category : #rendering }
 QuestionComponent >> renderContentOn: aCanvas [
-		aCanvas anchor
+	aCanvas anchor
 		callback: [  ];
 		with: aQuestion titulo.
 	aCanvas paragraph.
@@ -55,19 +47,25 @@ QuestionComponent >> renderContentOn: aCanvas [
 	aCanvas
 		paragraph: [ aCanvas label: 'Realizada por: '.
 			aCanvas anchor
-				callback: [ self parent call: (PerfilUserComponent of: (self model obtenerAutorDePregunta: aQuestion)) ];
+				callback: [ self parent
+						call:
+							(PerfilUserComponent
+								of: (self model obtenerAutorDePregunta: aQuestion)) ];
 				with: (self model obtenerAutorDePregunta: aQuestion) nombre ].
 	aCanvas space.
-	aCanvas anchor
-		callback: [  ];
-		with: aQuestion respuestas size asString , ' respuestas'.
+	aCanvas label: aQuestion respuestas size asString ,' respuestas'.
 	aCanvas paragraph.
 	aCanvas label
 		with:
 			aQuestion likes asString , ' likes | ' , aQuestion dislikes asString
 				, ' dislikes'.
 	aCanvas paragraph.
-	self renderizarLikes: aCanvas.
+	self renderizarLikes: aCanvas
+]
+
+{ #category : #rendering }
+QuestionComponent >> renderizarDetalleDeRespuestas: aCanvas [
+	aCanvas paragraph: 'hola'.
 ]
 
 { #category : #rendering }
