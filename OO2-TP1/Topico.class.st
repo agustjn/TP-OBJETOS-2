@@ -16,8 +16,18 @@ Topico class >> newConNombre: aName yDesc: aDescription [
 	^ instance
 ]
 
+{ #category : #accessing }
+Topico >> desc [
+	^ desc
+]
+
 { #category : #initialization }
 Topico >> initializeConNombre: aName descripcion: aDesc [
 	nombre := aName .
 	desc := aDesc .
+]
+
+{ #category : #accessing }
+Topico >> nombre [
+	^ nombre
 ]
