@@ -11,12 +11,15 @@ Class {
 
 { #category : #rendering }
 NewQuestionComponent >> publicar [
-	|pregunta |
+	| pregunta |
 	pregunta := Pregunta
 		newConTitulo: titulo
 		yTexto: texto
-		relacionadoA: nil.
-	self model agregarPregunta: pregunta deTopicos: nil delUsuario: self session user .
+		relacionadoA: topicos.
+	self model
+		agregarPregunta: pregunta
+		deTopicos: topicos
+		delUsuario: self session user.
 	self answer
 ]
 
@@ -30,17 +33,12 @@ NewQuestionComponent >> renderContentOn: aCanvas [
 
 { #category : #rendering }
 NewQuestionComponent >> renderInputElementsOn: aCanvas [
-"aCanvas label: 'Topico/s'."
-	"aCanvas paragraph: [ aCanvas textInput on: #Topico of: self ]"
 	aCanvas label: 'Titulo'.
 	aCanvas paragraph: [ aCanvas textInput on: #titulo of: self ].
 	aCanvas label: 'Descripcion'.
-	aCanvas paragraph: [ aCanvas textInput on: #texto of: self ]
-	
-	
-	
-	
-	
+	aCanvas paragraph: [ aCanvas textInput on: #texto of: self ].
+	aCanvas label: 'Topico/s'.
+	aCanvas paragraph: [ aCanvas textInput on: #topicos of: self ]
 ]
 
 { #category : #rendering }
@@ -68,4 +66,14 @@ NewQuestionComponent >> titulo [
 { #category : #rendering }
 NewQuestionComponent >> titulo: aTitle [
 	titulo := aTitle .
+]
+
+{ #category : #rendering }
+NewQuestionComponent >> topicos [
+	^topicos
+]
+
+{ #category : #rendering }
+NewQuestionComponent >> topicos: aTopic [
+	topicos := aTopic 
 ]
