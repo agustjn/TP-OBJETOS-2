@@ -42,10 +42,10 @@ QuestionDetailComponent >> renderContentOn: aCanvas [
 
 { #category : #rendering }
 QuestionDetailComponent >> renderizarRespuestas: aCanvas ofQuestion: aQuestion [
-	aCanvas unorderedList: [  aQuestion 
-										respuestas do: [  :rta | aCanvas 
-																		listItem: [ aCanvas render:(AnswerComponent of: rta)] . ] ]
-
+	aCanvas
+		unorderedList: [ aQuestion respuestasOrdenadas 
+				do:
+					[ :rta | aCanvas listItem: [ aCanvas render: (AnswerComponent of: rta) ] ] ]
 ]
 
 { #category : #rendering }

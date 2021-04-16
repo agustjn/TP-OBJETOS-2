@@ -37,7 +37,11 @@ FormAnswerComponent >> renderContentOn: aCanvas [
 			aCanvas break.
 			aCanvas submitButton
 				callback: [ self responder ];
-				with: 'Guardar' ]
+				with: 'Guardar' .
+			aCanvas submitButton
+				callback: [ self answer ];
+				value: 'Cancelar' ] .
+			
 ]
 
 { #category : #accessing }

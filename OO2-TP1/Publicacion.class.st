@@ -66,11 +66,10 @@ Publicacion >> horaYFecha [
 
 { #category : #initialization }
 Publicacion >> initialize [
-	likes:=0.
-	dislikes:=0.
-	reacciones := OrderedCollection new .
-	horaYfecha := DateAndTime today.
-	
+	likes := 0.
+	dislikes := 0.
+	reacciones := OrderedCollection new.
+	horaYfecha := DateAndTime now 
 ]
 
 { #category : #accessing }

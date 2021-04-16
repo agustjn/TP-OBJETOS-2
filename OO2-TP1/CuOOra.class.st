@@ -69,6 +69,15 @@ CuOOra >> calcularPuntajeDeRespuestas: someAnswers [
 		sum: [ :a | a calcularPuntaje ]) + (someAnswers size * 50)
 ]
 
+{ #category : #queries }
+CuOOra >> cincoPreguntasRelevantesPara: anUser [
+	| preguntas cincoPregutas |
+	cincoPregutas := OrderedCollection new.
+	preguntas := self preguntasRelevantesParaUsuario: anUser.
+	1 to: 5 do: [ :i |  (i <= preguntas size) ifTrue: [ cincoPregutas add: (preguntas at: i)] ].
+	^ cincoPregutas
+]
+
 { #category : #accessing }
 CuOOra >> existe: aString [
 
@@ -150,7 +159,8 @@ CuOOra >> preguntasRelevantesParaUsuario: anUser [
 	anUser topicosDeInteres
 		do: [ :topic | preguntasR addAll: (self obtenerPreguntasDeTopico: topic) ].
 	anUser seguidos do: [ :user | preguntasR addAll: user preguntas ].
-	^ (preguntasR asSortedCollection: [ :preg1 :preg2 | preg1 horaYFecha > preg2 horaYFecha  ] )
+	^ preguntasR
+		asSortedCollection: [ :preg1 :preg2 | preg1 horaYFecha > preg2 horaYFecha ]
 ]
 
 { #category : #accessing }

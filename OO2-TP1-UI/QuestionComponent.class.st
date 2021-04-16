@@ -79,11 +79,6 @@ QuestionComponent >> renderContentOn: aCanvas [
 ]
 
 { #category : #rendering }
-QuestionComponent >> renderizarDetalleDeRespuestas: aCanvas [
-	aCanvas paragraph: 'hola'.
-]
-
-{ #category : #rendering }
 QuestionComponent >> renderizarLikes: aCanvas [
 	aCanvas anchor 	
 				callback: [ aQuestion 
