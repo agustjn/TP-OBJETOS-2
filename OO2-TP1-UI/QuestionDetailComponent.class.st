@@ -47,3 +47,10 @@ QuestionDetailComponent >> renderizarRespuestas: aCanvas ofQuestion: aQuestion [
 																		listItem: [ aCanvas render:(AnswerComponent of: rta)] . ] ]
 
 ]
+
+{ #category : #rendering }
+QuestionDetailComponent >> style [
+	^  ' 
+			
+		'
+]

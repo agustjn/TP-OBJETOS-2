@@ -2,21 +2,39 @@ Class {
 	#name : #NewQuestionComponent,
 	#superclass : #WebComponent,
 	#instVars : [
-		'titulo',
-		'texto',
+		'tituloText',
+		'descText',
 		'topicoText'
 	],
 	#category : #'OO2-TP1-UI'
 }
 
-{ #category : #rendering }
+{ #category : #accessing }
+NewQuestionComponent >> descText [
+	^ descText
+]
+
+{ #category : #accessing }
+NewQuestionComponent >> descText: anObject [
+	descText := anObject
+]
+
+{ #category : #initialization }
+NewQuestionComponent >> initialize [
+	super initialize.
+	tituloText := ''.
+	descText:=''.
+	topicoText:=''.
+]
+
+{ #category : #accessing }
 NewQuestionComponent >> publicar [
 	| tops |
 	topicoText parseLiterals. 
 	tops := topicoText splitOn: ','.
 	self model
-		agregarPreguntaConTitulo: titulo
-		descripcion: texto
+		agregarPreguntaConTitulo: tituloText
+		descripcion: descText
 		topicos: tops
 		usuario: self session user.
 	self answer
@@ -25,48 +43,31 @@ NewQuestionComponent >> publicar [
 { #category : #rendering }
 NewQuestionComponent >> renderContentOn: aCanvas [
 	self renderNavOn: aCanvas.
-	aCanvas strong: 'Crear Pregunta'.
-	aCanvas
-		form: [ self renderInputElementsOn: aCanvas.
-			self renderPublicButtonOn: aCanvas ]
+	aCanvas heading: 'Crear pregunta'.
+	aCanvas form: [
+        aCanvas text: 'Titulo: ' ; paragraph.
+        aCanvas textInput on:#tituloText of:self.
+        aCanvas break.
+        aCanvas text: 'Descripcion: ' ; paragraph.
+        aCanvas textArea on:#descText of:self.
+        aCanvas break.
+		  aCanvas text:'Topicos (separados por una ",")'; paragraph.
+		  aCanvas textInput on:#topicoText of:self.
+		  aCanvas break.
+		  aCanvas paragraph.
+        aCanvas submitButton
+            callback: [ self publicar ];
+            value: 'Publicar']
 ]
 
-{ #category : #rendering }
-NewQuestionComponent >> renderInputElementsOn: aCanvas [
-	aCanvas label: 'Titulo'.
-	aCanvas paragraph: [ aCanvas textInput on: #titulo of: self ].
-	aCanvas label: 'Desarrollo'.
-	aCanvas
-		paragraph: [ aCanvas textInput on: #texto of: self ] .
-	aCanvas label: 'Topicos/s (separado por comas)'.
-	aCanvas paragraph: [ aCanvas textInput on: #topicoText of: self ]
+{ #category : #accessing }
+NewQuestionComponent >> tituloText [
+	^ tituloText
 ]
 
-{ #category : #rendering }
-NewQuestionComponent >> renderPublicButtonOn: aCanvas [
-	aCanvas anchor
-		callback: [ self publicar ];
-		with: [ aCanvas button: 'Guardar' ]
-]
-
-{ #category : #rendering }
-NewQuestionComponent >> texto [
-	^texto 
-]
-
-{ #category : #rendering }
-NewQuestionComponent >> texto: aText [
-	texto := aText
-]
-
-{ #category : #rendering }
-NewQuestionComponent >> titulo [
-	^titulo 
-]
-
-{ #category : #rendering }
-NewQuestionComponent >> titulo: aTitle [
-	titulo := aTitle .
+{ #category : #accessing }
+NewQuestionComponent >> tituloText: anObject [
+	tituloText := anObject
 ]
 
 { #category : #rendering }

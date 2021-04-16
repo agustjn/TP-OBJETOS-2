@@ -18,7 +18,7 @@ HomeComponente >> model [
 HomeComponente >> renderContentOn: aCanvas [
 	self renderNavOn: aCanvas.
 	
-	aCanvas div with: [ self renderizarPreguntas: aCanvas ].
+	aCanvas div class:'div-questions';with: [ self renderizarPreguntas: aCanvas ].
 	aCanvas anchor
 		callback: [ self createNewQuestion ];
 		with: [ aCanvas button: 'Nueva pregunta' ].
@@ -61,11 +61,15 @@ HomeComponente >> renderizarPreguntas: aCanvas [
 		unorderedList: [ questions
 				do: [ :pregunta | 
 					aCanvas
-						listItem: [ aCanvas anchor
-								callback: [ self call: (QuestionDetailComponent of:pregunta) ];
-								with: 'Ver '.
-							aCanvas space.
+						listItem: [ 
 							aCanvas
 								render: (QuestionComponent of: pregunta andParent: self).
 							aCanvas horizontalRule ] ] ]
+]
+
+{ #category : #styles }
+HomeComponente >> style [
+	^ self componentsStyles, '
+
+	'
 ]

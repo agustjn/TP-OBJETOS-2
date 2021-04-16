@@ -103,3 +103,10 @@ QuestionComponent >> renderizarTopicos: aTopics conCanvas: aCanvas [
 	aTopics do: [ :topic | aCanvas label:topic nombre.
 								  aCanvas space.]
 ]
+
+{ #category : #'accessing-styles' }
+QuestionComponent >> style [
+	^ ' 
+	* { background : red }
+	'
+]
