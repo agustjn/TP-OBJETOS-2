@@ -30,8 +30,7 @@ TestCuOOra >> testAgregarPreguntaDeTopicosDelUsuario [
 		assert: (cuOOra obtenerPreguntasDeTopico: topic) first
 		equals: aQuestion.
 	self
-		assert: ((cuOOra obtenerPreguntasDelUsuario: anUser) includes: aQuestion )
-		
+		assert: ((cuOOra obtenerPreguntasDelUsuario: anUser) includes: aQuestion)
 ]
 
 { #category : #testing }

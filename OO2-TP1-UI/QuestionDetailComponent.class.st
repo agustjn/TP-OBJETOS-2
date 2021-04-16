@@ -16,6 +16,11 @@ QuestionDetailComponent class >> of: aQuestion [
 ]
 
 { #category : #accessing }
+QuestionDetailComponent >> crearRespuesta [
+	self call: FormAnswerComponent new
+]
+
+{ #category : #accessing }
 QuestionDetailComponent >> question [
 	^ question
 ]

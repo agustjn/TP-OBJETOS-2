@@ -27,7 +27,7 @@ NewQuestionComponent >> renderContentOn: aCanvas [
 	self renderNavOn: aCanvas.
 	aCanvas strong: 'Crear Pregunta'.
 	aCanvas
-		div: [ self renderInputElementsOn: aCanvas.
+		form: [ self renderInputElementsOn: aCanvas.
 			self renderPublicButtonOn: aCanvas ]
 ]
 
@@ -36,18 +36,17 @@ NewQuestionComponent >> renderInputElementsOn: aCanvas [
 	aCanvas label: 'Titulo'.
 	aCanvas paragraph: [ aCanvas textInput on: #titulo of: self ].
 	aCanvas label: 'Desarrollo'.
-	aCanvas paragraph: [ (aCanvas textArea on: #texto of: self )
-								columns: 80;
-								rows: 5 ].
+	aCanvas
+		paragraph: [ aCanvas textInput on: #texto of: self ] .
 	aCanvas label: 'Topicos/s (separado por comas)'.
 	aCanvas paragraph: [ aCanvas textInput on: #topicoText of: self ]
 ]
 
 { #category : #rendering }
 NewQuestionComponent >> renderPublicButtonOn: aCanvas [
-	aCanvas submitButton
+	aCanvas anchor
 		callback: [ self publicar ];
-		with: 'Publicar'
+		with: [ aCanvas button: 'Guardar' ]
 ]
 
 { #category : #rendering }
