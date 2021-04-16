@@ -7,11 +7,26 @@ Class {
 { #category : #rendering }
 WebComponent >> componentsStyles [
 	^ ' 
-	.cuoora-title { text-align:center;
-						 font-family:Arial,Helvetica, sans-serif;
+	form { text-align:center;
+			 background:lightgreen }
+	h1 { text-align:center;
+			font-family:fantasy;
 						  } 
-	 .welcome { text-align:right;
-					background:blue }
+	h2 { text-align:center;
+			font-family:Sans-serif;
+						  } 
+	h3 { text-align:center }
+	strong { text-align: center;
+				font-family: monospace;
+				background:red }
+	
+	.logout { text-align: right }
+	 
+					
+	  li { list-style:none;
+		background : #f8f32b }
+		
+		.div-questions { background : lightgreen }
 	 label { 
   font-size: 1.2rem;
   font-family: sans-serif;
@@ -58,6 +73,9 @@ WebComponent >> componentsStyles [
   color: #CDFEAA;
 }
 
+.new-question { text-align:center;
+				    background:black } 
+.question-detail { background: lightgreen }
 
 
 	
@@ -77,7 +95,8 @@ WebComponent >> renderNavOn: aCanvas [
 				class: 'cuoora-title';
 				with: 'CuOOra';
 				level: 4.
-			aCanvas label
+			aCanvas heading 
+			   level:3;
 				class: 'welcome';
 				with: 'Bienvenido : ' , self session user nombre.
 			aCanvas
@@ -93,8 +112,9 @@ WebComponent >> renderNavOn: aCanvas [
 				callback: [ self session user: nil.
 					self answer ];
 				with: ' Cerrar sesion';
-				class: 'logout'.
-			aCanvas horizontalRule ]
+				class: 'logout'. ]
+			
+			 
 ]
 
 { #category : #rendering }

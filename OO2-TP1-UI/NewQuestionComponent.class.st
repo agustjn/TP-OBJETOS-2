@@ -43,21 +43,26 @@ NewQuestionComponent >> publicar [
 { #category : #rendering }
 NewQuestionComponent >> renderContentOn: aCanvas [
 	self renderNavOn: aCanvas.
-	aCanvas heading: 'Crear pregunta'.
 	aCanvas form: [
-        aCanvas text: 'Titulo: ' ; paragraph.
+		  aCanvas heading: 'Crear pregunta'.
+        aCanvas label: 'Titulo: ' ; paragraph.
         aCanvas textInput on:#tituloText of:self.
         aCanvas break.
-        aCanvas text: 'Descripcion: ' ; paragraph.
+        aCanvas label: 'Descripcion: ' ; paragraph.
         aCanvas textArea on:#descText of:self.
         aCanvas break.
-		  aCanvas text:'Topicos (separados por una ",")'; paragraph.
+		  aCanvas label:'Topicos (separados por una ",")'; paragraph.
 		  aCanvas textInput on:#topicoText of:self.
 		  aCanvas break.
 		  aCanvas paragraph.
         aCanvas submitButton
             callback: [ self publicar ];
             value: 'Publicar']
+]
+
+{ #category : #'accessing-styles' }
+NewQuestionComponent >> style [
+	^ self componentsStyles
 ]
 
 { #category : #accessing }
