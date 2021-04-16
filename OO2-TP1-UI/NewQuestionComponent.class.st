@@ -24,10 +24,10 @@ NewQuestionComponent >> publicar [
 
 { #category : #rendering }
 NewQuestionComponent >> renderContentOn: aCanvas [
-	self renderNavOn: aCanvas .
+	self renderNavOn: aCanvas.
 	aCanvas strong: 'Crear Pregunta'.
 	aCanvas
-		form: [ self renderInputElementsOn: aCanvas.
+		div: [ self renderInputElementsOn: aCanvas.
 			self renderPublicButtonOn: aCanvas ]
 ]
 
