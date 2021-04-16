@@ -1,12 +1,21 @@
 Class {
 	#name : #QuestionComponent,
-	#superclass : #WebComponent,
+	#superclass : #WAComponent,
 	#instVars : [
 		'aQuestion',
 		'parent'
 	],
 	#category : #'OO2-TP1-UI'
 }
+
+{ #category : #'instance creation' }
+QuestionComponent class >> of: aQuestion [
+	| instance |
+	instance := self new.
+	instance aQuestion: aQuestion.
+	instance parent: nil.
+	^instance
+]
 
 { #category : #'instance creation' }
 QuestionComponent class >> of: aQuestion andParent: aParent [
@@ -28,6 +37,11 @@ QuestionComponent >> aQuestion: anObject [
 ]
 
 { #category : #accessing }
+QuestionComponent >> model [
+	^ CuOOra soleInstance
+]
+
+{ #category : #accessing }
 QuestionComponent >> parent [
 	^ parent
 ]
@@ -40,7 +54,8 @@ QuestionComponent >> parent: anObject [
 { #category : #rendering }
 QuestionComponent >> renderContentOn: aCanvas [
 	aCanvas anchor
-		callback: [  ];
+		"Si soy un componente hijo y tengo padre, que el padre llame al componente, sino no hago nada"
+		callback: [ parent ifNotNil: [ self parent call:( QuestionDetailComponent of: aQuestion ) ]];
 		with: aQuestion titulo.
 	aCanvas paragraph.
 	self renderizarTopicos: aQuestion topicos conCanvas: aCanvas.

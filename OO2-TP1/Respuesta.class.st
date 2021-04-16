@@ -28,6 +28,16 @@ Respuesta >> perteneceA: aUser [
 	^ usuario == aUser 
 ]
 
+{ #category : #accessing }
+Respuesta >> text [
+	^ text
+]
+
+{ #category : #accessing }
+Respuesta >> text: anObject [
+	text := anObject
+]
+
 { #category : #queries }
 Respuesta >> usuario [
 	^ usuario

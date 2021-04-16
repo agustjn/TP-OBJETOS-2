@@ -59,8 +59,8 @@ HomeComponente >> renderizarPreguntas: aCanvas [
 		unorderedList: [ questions
 				do: [ :pregunta | 
 					aCanvas
-						listItem: [ aCanvas submitButton
-								callback: [ self renderizarDetalles: aCanvas DePregunta: pregunta ];
+						listItem: [ aCanvas anchor
+								callback: [ self call: (QuestionDetailComponent of:pregunta) ];
 								with: 'Ver '.
 							aCanvas space.
 							aCanvas

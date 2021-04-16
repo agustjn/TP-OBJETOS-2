@@ -100,7 +100,9 @@ Usuario >> seguidos [
 
 { #category : #accessing }
 Usuario >> seguirUsuario: aUser [
-	seguidos add: aUser .
+	(seguidos includes: aUser) 
+		ifFalse:[ seguidos add: aUser ]
+	
 ]
 
 { #category : #accessing }
