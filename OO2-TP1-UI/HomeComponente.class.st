@@ -17,7 +17,11 @@ HomeComponente >> model [
 { #category : #rendering }
 HomeComponente >> renderContentOn: aCanvas [
 	self renderNavOn: aCanvas.
-	aCanvas div with: [ self renderizarPreguntas: aCanvas ]
+	
+	aCanvas div with: [ self renderizarPreguntas: aCanvas ].
+	aCanvas anchor
+		callback: [ self createNewQuestion ];
+		with: [ aCanvas button: 'Nueva pregunta' ].
 ]
 
 { #category : #rendering }
@@ -49,9 +53,7 @@ HomeComponente >> renderizarLikes: aCanvas dePregunta: aQuestion [
 { #category : #rendering }
 HomeComponente >> renderizarPreguntas: aCanvas [
 	| questions |
-	aCanvas anchor
-		callback: [ self createNewQuestion ];
-		with: [ aCanvas button: 'Nueva pregunta' ].
+	
 	questions := self model
 		preguntasRelevantesParaUsuario: self session user.
 	aCanvas heading: 'Ultimas preguntas'.
