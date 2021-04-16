@@ -18,7 +18,7 @@ Respuesta class >> newCon: aText Usuario: anUser [
 
 { #category : #initialize }
 Respuesta >> initializeCon: aText Usuario: anUser [
-	super initialize.
+	self initialize.
 	text := aText.
 	usuario := anUser
 ]
