@@ -82,6 +82,11 @@ NewQuestionComponent >> renderTextInputOn: aCanvas [
 			aCanvas paragraph.
 ]
 
+{ #category : #'accessing-styles' }
+NewQuestionComponent >> style [
+	^ self componentsStyles
+]
+
 { #category : #accessing }
 NewQuestionComponent >> tituloText [
 	^ tituloText

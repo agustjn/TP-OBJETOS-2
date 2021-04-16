@@ -72,7 +72,7 @@ QuestionComponent >> renderContentOn: aCanvas [
 	aCanvas paragraph.
 	aCanvas label
 		with:
-			aQuestion likes asString , ' likes | ' , aQuestion dislikes asString
+			' ',aQuestion likes asString , ' likes | ' , aQuestion dislikes asString
 				, ' dislikes'.
 	aCanvas paragraph.
 	self renderizarLikes: aCanvas
@@ -84,17 +84,18 @@ QuestionComponent >> renderizarLikes: aCanvas [
 				callback: [ aQuestion 
 							agregarReaccion: (Reaccion newConEstado:true Usuario:self session user).
 							 ] ;
-					with: 'like'.
+					with: 'Me gusta'.
 	aCanvas space.
 	aCanvas space.
 	aCanvas anchor 		
 					callback: [ aQuestion 
 							agregarReaccion: (Reaccion newConEstado:false Usuario:self session user). ] ;
-					with: 'dislike'.
+					with: 'No me gusta'.
 ]
 
 { #category : #rendering }
 QuestionComponent >> renderizarTopicos: aTopics conCanvas: aCanvas [
+  aCanvas label: 'Topicos: '.
 	aTopics do: [ :topic | aCanvas label:topic nombre.
 								  aCanvas space.]
 ]

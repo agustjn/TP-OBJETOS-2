@@ -76,6 +76,11 @@ PerfilUserComponent >> renderizarTopicos: aTopics conCanvas: aCanvas [
 								  aCanvas space.]
 ]
 
+{ #category : #'accessing-styles' }
+PerfilUserComponent >> style [
+	^ self componentsStyles
+]
+
 { #category : #accessing }
 PerfilUserComponent >> user [
 	^ user

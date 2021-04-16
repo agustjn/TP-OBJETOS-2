@@ -32,11 +32,15 @@ QuestionDetailComponent >> question: anObject [
 
 { #category : #rendering }
 QuestionDetailComponent >> renderContentOn: aCanvas [
+   
+   aCanvas div class:'question-detail'; with:[
 	self renderNavOn: aCanvas.
+	aCanvas horizontalRule.
 	aCanvas render: (QuestionComponent of: question).
 	self renderizarRespuestas: aCanvas ofQuestion: question.
 	aCanvas horizontalRule.
-	aCanvas render: (FormAnswerComponent ofQuestion: question).
+	aCanvas render: (FormAnswerComponent ofQuestion: question).]
+	
 	
 ]
 
@@ -48,9 +52,7 @@ QuestionDetailComponent >> renderizarRespuestas: aCanvas ofQuestion: aQuestion [
 					[ :rta | aCanvas listItem: [ aCanvas render: (AnswerComponent of: rta) ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : #'accessing-styles' }
 QuestionDetailComponent >> style [
-	^  ' 
-			
-		'
+	^ self componentsStyles
 ]
