@@ -28,10 +28,10 @@ QuestionDetailComponent >> question: anObject [
 { #category : #rendering }
 QuestionDetailComponent >> renderContentOn: aCanvas [
 	self renderNavOn: aCanvas.
-	aCanvas render:(QuestionComponent of: question).
+	aCanvas render: (QuestionComponent of: question).
 	self renderizarRespuestas: aCanvas ofQuestion: question.
-	
-	
+	aCanvas horizontalRule.
+	aCanvas render: (FormAnswerComponent ofQuestion: question).
 	
 ]
 
