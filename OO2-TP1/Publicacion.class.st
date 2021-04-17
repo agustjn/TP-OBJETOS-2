@@ -20,7 +20,7 @@ Publicacion >> agregarLike [
 	likes := likes + 1
 ]
 
-{ #category : #protected }
+{ #category : #accessing }
 Publicacion >> agregarReaccion: aReaction [
 	"Recibe una reaccion, la agrega, y si el usuario ya habia reaccionado antes, borra la anterior"
 
@@ -39,7 +39,7 @@ Publicacion >> aplicarReaccion: aReaction [
 		reacciones add: aReaction 
 ]
 
-{ #category : #protected }
+{ #category : #accessing }
 Publicacion >> buscarReaccion: aReaction [
 "cambiar nombrea  reaccion de un mismo user"
 	| r |
