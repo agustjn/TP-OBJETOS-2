@@ -73,12 +73,6 @@ Usuario >> nombre [
 ]
 
 { #category : #queries }
-Usuario >> obtenerPregunta: aQuestion [
-	^preguntas detect: [ :question | question == aQuestion ]
-				  ifNone:[^nil]
-]
-
-{ #category : #queries }
 Usuario >> obtenerPreguntasDelTopico: aTopic [
 	^ preguntas select: [ :preg | preg topicos includes: aTopic ]
 ]

@@ -26,11 +26,11 @@ Pregunta >> agregarRespuesta: aAnswer [
 
 { #category : #initialize }
 Pregunta >> initializeConTitulo: aTitle Texto: aText topicos: someTopics [
-	super initialize.
+	self initialize.
 	titulo := aTitle.
-	texto := aText. 
-	topicos := someTopics. 
-	respuestas := OrderedCollection new.
+	texto := aText.
+	topicos := someTopics.
+	respuestas := OrderedCollection new
 ]
 
 { #category : #accessing }

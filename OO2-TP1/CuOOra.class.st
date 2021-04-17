@@ -124,11 +124,6 @@ CuOOra >> obtenerPreguntasDeTopico: aTopic [
 ]
 
 { #category : #queries }
-CuOOra >> obtenerPreguntasDelUsuario: aUser [
- 	 usuarios do: [ :user | user == aUser ifTrue: [ ^ aUser preguntas]  ]
-]
-
-{ #category : #queries }
 CuOOra >> obtenerPuntajeDelUsuario: anUser [
 	^ (anUser calcularPuntajeDePreguntas
 		+

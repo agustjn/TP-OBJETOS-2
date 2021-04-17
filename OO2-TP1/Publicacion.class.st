@@ -10,17 +10,17 @@ Class {
 	#category : #'OO2-TP1-Model'
 }
 
-{ #category : #private }
+{ #category : #protected }
 Publicacion >> agregarDislike [
 	dislikes := dislikes + 1
 ]
 
-{ #category : #private }
+{ #category : #protected }
 Publicacion >> agregarLike [
 	likes := likes + 1
 ]
 
-{ #category : #accessing }
+{ #category : #protected }
 Publicacion >> agregarReaccion: aReaction [
 	"Recibe una reaccion, la agrega, y si el usuario ya habia reaccionado antes, borra la anterior"
 
@@ -31,7 +31,7 @@ Publicacion >> agregarReaccion: aReaction [
 	ifNil: [ self aplicarReaccion: aReaction  ]
 ]
 
-{ #category : #private }
+{ #category : #protected }
 Publicacion >> aplicarReaccion: aReaction [
 	aReaction estado
 		ifTrue: [ self agregarLike ]
@@ -39,7 +39,7 @@ Publicacion >> aplicarReaccion: aReaction [
 		reacciones add: aReaction 
 ]
 
-{ #category : #private }
+{ #category : #protected }
 Publicacion >> buscarReaccion: aReaction [
 "cambiar nombrea  reaccion de un mismo user"
 	| r |
@@ -69,7 +69,8 @@ Publicacion >> initialize [
 	likes := 0.
 	dislikes := 0.
 	reacciones := OrderedCollection new.
-	horaYfecha := DateAndTime now 
+	horaYfecha := DateAndTime now.
+	
 ]
 
 { #category : #accessing }
@@ -77,20 +78,25 @@ Publicacion >> likes [
 	^ likes 
 ]
 
-{ #category : #private }
+{ #category : #protected }
 Publicacion >> quitarDislike [
 	dislikes := dislikes - 1
 ]
 
-{ #category : #private }
+{ #category : #protected }
 Publicacion >> quitarLike [
 	likes := likes - 1
 ]
 
-{ #category : #private }
+{ #category : #protected }
 Publicacion >> quitarReaccion: aReaction [
 	aReaction estado
 		ifTrue: [ self quitarLike ]
 		ifFalse: [ self quitarDislike ].
 	reacciones remove: aReaction
+]
+
+{ #category : #accessing }
+Publicacion >> reacciones [ 
+	^reacciones 
 ]
