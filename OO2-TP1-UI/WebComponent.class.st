@@ -4,7 +4,7 @@ Class {
 	#category : #'OO2-TP1-UI'
 }
 
-{ #category : #rendering }
+{ #category : #protected }
 WebComponent >> componentsStyles [
 	^ ' 
 	form { text-align:center;
@@ -82,12 +82,12 @@ WebComponent >> componentsStyles [
 		 '
 ]
 
-{ #category : #accessing }
+{ #category : #protected }
 WebComponent >> model [
 	^ CuOOra soleInstance
 ]
 
-{ #category : #rendering }
+{ #category : #protected }
 WebComponent >> renderNavOn: aCanvas [
 	aCanvas div
 		class: 'nav-bar';

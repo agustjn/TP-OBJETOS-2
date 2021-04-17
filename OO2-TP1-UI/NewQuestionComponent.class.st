@@ -9,22 +9,22 @@ Class {
 	#category : #'OO2-TP1-UI'
 }
 
-{ #category : #accessing }
+{ #category : #'private ' }
 NewQuestionComponent >> cancelar [
 	^ self 
 ]
 
-{ #category : #accessing }
+{ #category : #'private ' }
 NewQuestionComponent >> descText [
 	^ descText
 ]
 
-{ #category : #accessing }
+{ #category : #'private ' }
 NewQuestionComponent >> descText: anObject [
 	descText := anObject
 ]
 
-{ #category : #initialization }
+{ #category : #'private ' }
 NewQuestionComponent >> initialize [
 	super initialize.
 	tituloText := ''.
@@ -32,7 +32,7 @@ NewQuestionComponent >> initialize [
 	topicoText:=''.
 ]
 
-{ #category : #accessing }
+{ #category : #'private ' }
 NewQuestionComponent >> publicar [
 	| tops |
 	tituloText ifEmpty: [ ^ self ].
@@ -62,7 +62,7 @@ NewQuestionComponent >> renderContentOn: aCanvas [
 				value: 'Cancelar' ]
 ]
 
-{ #category : #accessing }
+{ #category : #'private ' }
 NewQuestionComponent >> renderTextInputOn: aCanvas [ 
 	aCanvas
 				text: 'Titulo: ';
@@ -82,22 +82,22 @@ NewQuestionComponent >> renderTextInputOn: aCanvas [
 			aCanvas paragraph.
 ]
 
-{ #category : #accessing }
+{ #category : #'private ' }
 NewQuestionComponent >> tituloText [
 	^ tituloText
 ]
 
-{ #category : #accessing }
+{ #category : #'private ' }
 NewQuestionComponent >> tituloText: anObject [
 	tituloText := anObject
 ]
 
-{ #category : #rendering }
+{ #category : #'private ' }
 NewQuestionComponent >> topicoText [
 	^topicoText 
 ]
 
-{ #category : #rendering }
+{ #category : #'private ' }
 NewQuestionComponent >> topicoText: aTopicText [
 	topicoText := aTopicText 
 ]

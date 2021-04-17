@@ -9,7 +9,7 @@ Class {
 	#category : #'OO2-TP1-UI'
 }
 
-{ #category : #rendering }
+{ #category : #private }
 HomeComponente >> createNewQuestion [
 	self call: NewQuestionComponent new 
 ]
@@ -26,18 +26,18 @@ HomeComponente >> renderContentOn: aCanvas [
 		.]
 ]
 
-{ #category : #rendering }
+{ #category : #private }
 HomeComponente >> renderizarDetalles: aCanvas DePregunta: aQuestion [
 	aCanvas render: (QuestionComponent of: aQuestion andParent: self).
 ]
 
-{ #category : #rendering }
+{ #category : #private }
 HomeComponente >> renderizarHeading: aCanvas [
 	aCanvas label: 'Bienvenido ' , self session user nombre.
 
 ]
 
-{ #category : #rendering }
+{ #category : #private }
 HomeComponente >> renderizarLikes: aCanvas dePregunta: aQuestion [
 	aCanvas anchor 	
 				callback: [ aQuestion 
@@ -52,7 +52,7 @@ HomeComponente >> renderizarLikes: aCanvas dePregunta: aQuestion [
 					with: 'dislike'.
 ]
 
-{ #category : #rendering }
+{ #category : #private }
 HomeComponente >> renderizarPreguntas: aCanvas [
 	| questions |
 	

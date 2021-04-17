@@ -26,7 +26,7 @@ PerfilUserComponent >> renderContentOn: aCanvas [
 	
 ]
 
-{ #category : #rendering }
+{ #category : #private }
 PerfilUserComponent >> renderizarLikes: aCanvas dePregunta: aQuestion [
 	aCanvas anchor 	
 				callback: [ aQuestion 
@@ -41,7 +41,7 @@ PerfilUserComponent >> renderizarLikes: aCanvas dePregunta: aQuestion [
 					with: 'dislike'.
 ]
 
-{ #category : #rendering }
+{ #category : #private }
 PerfilUserComponent >> renderizarPregunta: aCanvas de: aQuestion [
 	aCanvas label: aQuestion titulo.
 	aCanvas paragraph.
@@ -59,7 +59,7 @@ PerfilUserComponent >> renderizarPregunta: aCanvas de: aQuestion [
 	
 ]
 
-{ #category : #rendering }
+{ #category : #private }
 PerfilUserComponent >> renderizarPreguntas: aCanvas [
 	| questions |
 	questions := user preguntas.
@@ -70,18 +70,18 @@ PerfilUserComponent >> renderizarPreguntas: aCanvas [
 						listItem: [ (QuestionComponent of: question andParent: self) renderContentOn: aCanvas ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : #private }
 PerfilUserComponent >> renderizarTopicos: aTopics conCanvas: aCanvas [
 	aTopics do: [ :topic | aCanvas label:topic nombre.
 								  aCanvas space.]
 ]
 
-{ #category : #accessing }
+{ #category : #accesing }
 PerfilUserComponent >> user [
 	^ user
 ]
 
-{ #category : #accessing }
+{ #category : #accesing }
 PerfilUserComponent >> user: anObject [
 	user := anObject
 ]

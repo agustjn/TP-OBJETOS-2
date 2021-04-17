@@ -44,7 +44,7 @@ FormAnswerComponent >> renderContentOn: aCanvas [
 			
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 FormAnswerComponent >> responder [
     text ifEmpty: [ ^ self ].
     question

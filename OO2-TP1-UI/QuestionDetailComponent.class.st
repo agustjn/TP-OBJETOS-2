@@ -15,7 +15,7 @@ QuestionDetailComponent class >> of: aQuestion [
 	^instance
 ]
 
-{ #category : #accessing }
+{ #category : #'private ' }
 QuestionDetailComponent >> crearRespuesta [
 	self call: FormAnswerComponent new
 ]
@@ -44,7 +44,7 @@ QuestionDetailComponent >> renderContentOn: aCanvas [
 	
 ]
 
-{ #category : #rendering }
+{ #category : #'private ' }
 QuestionDetailComponent >> renderizarRespuestas: aCanvas ofQuestion: aQuestion [
 	aCanvas
 		unorderedList: [ aQuestion respuestasOrdenadas 
