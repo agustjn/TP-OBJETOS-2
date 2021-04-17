@@ -55,16 +55,13 @@ HomeComponente >> renderizarLikes: aCanvas dePregunta: aQuestion [
 { #category : #private }
 HomeComponente >> renderizarPreguntas: aCanvas [
 	| questions |
-	
 	questions := self model
-		preguntasRelevantesParaUsuario: self session user.
+		cincoPreguntasRelevantesPara: self session user.
 	aCanvas heading level2 with: 'Ultimas preguntas'.
 	aCanvas
 		unorderedList: [ questions
 				do: [ :pregunta | 
 					aCanvas
-						listItem: [ 
-							aCanvas
-								render: (QuestionComponent of: pregunta andParent: self).
+						listItem: [ aCanvas render: (QuestionComponent of: pregunta andParent: self).
 							aCanvas horizontalRule ] ] ]
 ]
