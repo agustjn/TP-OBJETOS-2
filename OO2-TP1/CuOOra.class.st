@@ -16,6 +16,55 @@ CuOOra class >> clearSoleInstance [
 	soleInstance := nil.
 ]
 
+{ #category : #'instance creation' }
+CuOOra class >> instanciaDePrueba [
+	| user1 user2 user3 topic1 topic2 topic3 preg1 preg2 resp1 respt2 topicos1 topicos2 |
+	user1 := Usuario
+		nuevoConNombre: 'pedro@cuoora.com'
+		yContraseña: 'pedro@cuoora.com'.
+	user2 := Usuario
+		nuevoConNombre: 'diego@cuoora.com'
+		yContraseña: 'diego@cuoora.com'.
+	user3 := Usuario
+		nuevoConNombre: 'juan@cuoora.com'
+		yContraseña: 'juan@cuoora.com'.
+	CuOOra soleInstance agregarUsuario: user1.
+	CuOOra soleInstance agregarUsuario: user2.
+	CuOOra soleInstance agregarUsuario: user3.
+	topic1 := Topico newConNombre: 'OO1' yDesc: ''.
+	topic2 := Topico newConNombre: 'Test de unidad' yDesc: ''.
+	topic3 := Topico newConNombre: 'Smalltalk' yDesc: ''.
+	topicos1 := OrderedCollection new.
+	topicos2 := OrderedCollection new.
+	topicos1 add: topic1.
+	topicos1 add: topic2.
+	topicos2 add: topic1.
+	topicos2 add: topic3.
+	CuOOra soleInstance agregarTopico: topic1.
+	CuOOra soleInstance agregarTopico: topic2.
+	CuOOra soleInstance agregarTopico: topic3.
+	user2 agregarTopicoDeInteres: topic1.
+	user1 agregarTopicoDeInteres: topic1.
+	user3 seguirUsuario: user2.
+	user1 seguirUsuario: user3 .
+	
+	preg1:= Pregunta newConTitulo: '¿Para qué sirve el método SetUp?' yTexto:''  relacionadoA: topicos1.
+	preg2 := Pregunta newConTitulo: '¿Qué significa #messageNotUnderstood?' yTexto:''  relacionadoA:topicos2.
+	
+	resp1 := Respuesta newCon: 'Sirve para instanciar los objetos que son
+evaluados por el test en un único método y que se ejecute
+siempre antes de cada test.' Usuario: user2.
+	respt2 := Respuesta newCon: ': Significa que el objeto que recibió el mensaje
+no encontró ningún método para ejecutar en respuesta.' Usuario: user1.
+
+	preg1 agregarRespuesta: resp1.
+	preg2 agregarRespuesta: respt2.
+	
+	user1 agregarPregunta: preg1.
+	user2 agregarPregunta: preg2 .
+	
+]
+
 { #category : #accessing }
 CuOOra class >> soleInstance [ 
 	^ soleInstance ifNil: [ soleInstance := self new ]

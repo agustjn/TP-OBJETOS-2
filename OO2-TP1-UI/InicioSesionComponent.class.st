@@ -1,3 +1,15 @@
+"
+Para iniciar: 
+|app|
+CuOOra clearSoleInstance . 
+
+app := WAAdmin register: InicioSesionComponent asApplicationAt: 'login'.
+app sessionClass: CuOOraSession.
+
+CuOOra instanciaDePrueba .
+
+
+"
 Class {
 	#name : #InicioSesionComponent,
 	#superclass : #WAComponent,
