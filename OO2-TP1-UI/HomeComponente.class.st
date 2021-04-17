@@ -1,3 +1,8 @@
+"
+app := WAAdmin register: InicioSesionComponent asApplicationAt: 'login'.
+app sessionClass: CuOOraSession.
+
+"
 Class {
 	#name : #HomeComponente,
 	#superclass : #WebComponent,
@@ -7,11 +12,6 @@ Class {
 { #category : #rendering }
 HomeComponente >> createNewQuestion [
 	self call: NewQuestionComponent new 
-]
-
-{ #category : #accessing }
-HomeComponente >> model [
-	^ CuOOra soleInstance
 ]
 
 { #category : #rendering }
@@ -67,11 +67,4 @@ HomeComponente >> renderizarPreguntas: aCanvas [
 							aCanvas
 								render: (QuestionComponent of: pregunta andParent: self).
 							aCanvas horizontalRule ] ] ]
-]
-
-{ #category : #styles }
-HomeComponente >> style [
-	^ self componentsStyles, '
-
-	'
 ]

@@ -53,11 +53,6 @@ FormAnswerComponent >> responder [
 	
 ]
 
-{ #category : #'accessing-styles' }
-FormAnswerComponent >> style [
-	^ self componentsStyles
-]
-
 { #category : #accessing }
 FormAnswerComponent >> text [
 	^ text
