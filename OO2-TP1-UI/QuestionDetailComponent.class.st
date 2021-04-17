@@ -51,8 +51,3 @@ QuestionDetailComponent >> renderizarRespuestas: aCanvas ofQuestion: aQuestion [
 				do:
 					[ :rta | aCanvas listItem: [ aCanvas render: (AnswerComponent of: rta) ] ] ]
 ]
-
-{ #category : #'accessing-styles' }
-QuestionDetailComponent >> style [
-	^ self componentsStyles
-]
