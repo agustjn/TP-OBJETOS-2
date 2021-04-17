@@ -36,7 +36,7 @@ QuestionDetailComponent >> renderContentOn: aCanvas [
    aCanvas div class:'question-detail'; with:[
 	self renderNavOn: aCanvas.
 	aCanvas horizontalRule.
-	aCanvas render: (QuestionComponent of: question).
+	aCanvas render: (QuestionComponent of: question andParent:self).
 	self renderizarRespuestas: aCanvas ofQuestion: question.
 	aCanvas horizontalRule.
 	aCanvas render: (FormAnswerComponent ofQuestion: question).]
