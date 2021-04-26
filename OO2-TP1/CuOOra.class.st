@@ -149,27 +149,13 @@ CuOOra >> obtenerAutorDePregunta: aQuestion [
 
 { #category : #queries }
 CuOOra >> obtenerPreguntas [
-	| preg |
-	preg := OrderedCollection new.
-	usuarios do: [ :user | preg addAll: user preguntas  ].
-	^ preg
+	^ usuarios flatCollect: [ :user | user preguntas ]
 ]
 
 { #category : #queries }
 CuOOra >> obtenerPreguntasDeTopico: aTopic [
-"Se retorna la coleccion de preguntas segun el topico recibido como parametro.
- Por cada usuario se retorna una coleccion de preguntas (si es que son relacionadas al topico)
- y por cada coleccion de los usuarios recibida (#obtenerPreguntasDelTopico) 
- se itera a la coleccion agregando las preguntas validas."
-	| coleccionPreguntas |
-	coleccionPreguntas := OrderedCollection new.
-	usuarios
-		do: [ :user | 
-			(user obtenerPreguntasDelTopico: aTopic)
-				do: [ :preg | preg ifNotNil: [ coleccionPreguntas add: preg ] ] ].
-	^ coleccionPreguntas
-	
 
+	^ usuarios flatCollect: [ :u | u obtenerPreguntasDelTopico: aTopic ]
 ]
 
 { #category : #queries }
@@ -186,12 +172,11 @@ CuOOra >> obtenerRespuestas: aQuestion [
 ]
 
 { #category : #queries }
-CuOOra >> obtenerRespuestasDelUsuario: aUser [
-	|res|
-	res :=OrderedCollection new .
-	self obtenerPreguntas
-		do: [ :p | res addAll: (p respuestas select: [ :r | r perteneceA: aUser ])] .
-	^res
+CuOOra >> obtenerRespuestasDelUsuario: anUser [
+	| res |
+	res := self obtenerPreguntas flatCollect: [ :p | p respuestas ] .
+	^ (res select: [ :r | r perteneceA: anUser ])
+	
 ]
 
 { #category : #queries }
@@ -199,10 +184,10 @@ CuOOra >> preguntasRelevantesParaUsuario: anUser [
 	"Se considera relevante una pregunta cuando ésta pertenece a un tópico de interés para el usuario en cuestión o bien cuando fue realizada por alguno de los usuarios que sigue en la red social."
 
 	| preguntasR |
-	preguntasR := Set new.
-	anUser topicosDeInteres
-		do: [ :topic | preguntasR addAll: (self obtenerPreguntasDeTopico: topic) ].
-	anUser seguidos do: [ :user | preguntasR addAll: user preguntas ].
+	preguntasR := (anUser topicosDeInteres
+		flatCollect: [ :topic | self obtenerPreguntasDeTopico: topic ]) asSet.
+	preguntasR
+		addAll: (anUser seguidos flatCollect: [ :user | user preguntas ]).
 	^ preguntasR
 		asSortedCollection: [ :preg1 :preg2 | preg1 horaYFecha > preg2 horaYFecha ]
 ]
