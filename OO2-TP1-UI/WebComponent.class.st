@@ -110,7 +110,7 @@ WebComponent >> renderNavOn: aCanvas [
 			aCanvas paragraph.
 			aCanvas anchor
 				callback: [ self session user: nil.
-					self answer ];
+					self show: InicioSesionComponent new ];
 				with: ' Cerrar sesion';
 				class: 'logout'. ]
 			

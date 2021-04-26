@@ -54,11 +54,27 @@ QuestionComponent >> parent: anObject [
 { #category : #rendering }
 QuestionComponent >> renderContentOn: aCanvas [
 	aCanvas anchor
-		"Si soy un componente hijo y tengo padre, que el padre llame al componente, sino no hago nada"
-		callback: [ parent ifNotNil: [ self parent call:( QuestionDetailComponent of: aQuestion ) ]];
+		callback: [ parent
+				ifNotNil: [ self parent call: (QuestionDetailComponent of: aQuestion) ] ];
 		with: aQuestion titulo.
+	"Si soy un componente hijo y tengo padre, que el padre llame al componente, sino no hago nada"
 	aCanvas paragraph.
 	self renderizarTopicos: aQuestion topicos conCanvas: aCanvas.
+	self renderizarAutor: aCanvas.
+	aCanvas space.
+	aCanvas label: aQuestion respuestas size asString , ' respuestas'.
+	aCanvas paragraph.
+	aCanvas render: (LikesComponent of: aQuestion)
+	"aCanvas label
+		with:
+			' ' , aQuestion likes asString , ' likes | '
+				, aQuestion dislikes asString , ' dislikes'.
+	aCanvas paragraph.
+	self renderizarLikes: aCanvas"
+]
+
+{ #category : #rendering }
+QuestionComponent >> renderizarAutor: aCanvas [
 	aCanvas
 		paragraph: [ aCanvas label: 'Realizada por: '.
 			aCanvas anchor
@@ -66,31 +82,7 @@ QuestionComponent >> renderContentOn: aCanvas [
 						call:
 							(PerfilUserComponent
 								of: (self model obtenerAutorDePregunta: aQuestion)) ];
-				with: (self model obtenerAutorDePregunta: aQuestion) nombre ].
-	aCanvas space.
-	aCanvas label: aQuestion respuestas size asString ,' respuestas'.
-	aCanvas paragraph.
-	aCanvas label
-		with:
-			' ',aQuestion likes asString , ' likes | ' , aQuestion dislikes asString
-				, ' dislikes'.
-	aCanvas paragraph.
-	self renderizarLikes: aCanvas
-]
-
-{ #category : #rendering }
-QuestionComponent >> renderizarLikes: aCanvas [
-	aCanvas anchor 	
-				callback: [ aQuestion 
-							agregarReaccion: (Reaccion newConEstado:true Usuario:self session user).
-							 ] ;
-					with: 'Me gusta'.
-	aCanvas space.
-	aCanvas space.
-	aCanvas anchor 		
-					callback: [ aQuestion 
-							agregarReaccion: (Reaccion newConEstado:false Usuario:self session user). ] ;
-					with: 'No me gusta'.
+				with: (self model obtenerAutorDePregunta: aQuestion) nombre ]
 ]
 
 { #category : #rendering }

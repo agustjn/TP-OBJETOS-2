@@ -54,7 +54,7 @@ CuOOra class >> instanciaDePrueba [
 	resp1 := Respuesta newCon: 'Sirve para instanciar los objetos que son
 evaluados por el test en un único método y que se ejecute
 siempre antes de cada test.' Usuario: user2.
-	respt2 := Respuesta newCon: ': Significa que el objeto que recibió el mensaje
+	respt2 := Respuesta newCon: 'Significa que el objeto que recibió el mensaje
 no encontró ningún método para ejecutar en respuesta.' Usuario: user1.
 
 	preg1 agregarRespuesta: resp1.
