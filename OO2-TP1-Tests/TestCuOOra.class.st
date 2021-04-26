@@ -105,7 +105,7 @@ TestCuOOra >> testObtenerDeUnUserSusRespuestas [
 
 { #category : #testing }
 TestCuOOra >> testObtenerPreguntasDeTopico [
-	| topic topic2 user1 preg1 preg2 auxCollection auxCollection2 |
+	| topic topic2 user1 preg1 preg2 auxCollection auxCollection2 user2 preg3 topic3|
 	"En este test se prueba el funcionamiento del metodo obtener preguntas de topico de la clase cuOOra.
 	auxCollection va a contener los topicos creados, para despues comprobar si la pregunta1
 	esta relacionada a los topicos creados (topic y topic2)
@@ -117,15 +117,20 @@ TestCuOOra >> testObtenerPreguntasDeTopico [
 	topic2 := Topico
 		newConNombre: 'Deporte'
 		yDesc: 'Se habla de deportes'.
+	topic3 := Topico newConNombre: 'nada' yDesc: ''.
 	cuOOra
 		agregarTopico: topic;
-		agregarTopico: topic2.
+		agregarTopico: topic2;
+		agregarTopico: topic3.
 	auxCollection := OrderedCollection new.
 	auxCollection
 		add: topic;
 		add: topic2.
 	user1 := Usuario nuevoConNombre: 'Pedro' yContraseña: 'pass1'.
+	user2 := Usuario nuevoConNombre: 'Juan' yContraseña: 'pass2'.
 	cuOOra agregarUsuario: user1.
+	cuOOra agregarUsuario: user2.
+	preg3 := Pregunta newConTitulo: '' yTexto: ''  relacionadoA: topic3.
 	preg1 := Pregunta
 		newConTitulo: 'Messi salva la seleccion'
 		yTexto:

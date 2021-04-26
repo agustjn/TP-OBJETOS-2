@@ -2,41 +2,26 @@ Class {
 	#name : #Publicacion,
 	#superclass : #Object,
 	#instVars : [
-		'likes',
-		'dislikes',
 		'reacciones',
 		'horaYfecha'
 	],
 	#category : #'OO2-TP1-Model'
 }
 
-{ #category : #protected }
-Publicacion >> agregarDislike [
-	dislikes := dislikes + 1
-]
-
-{ #category : #protected }
-Publicacion >> agregarLike [
-	likes := likes + 1
-]
-
 { #category : #accessing }
 Publicacion >> agregarReaccion: aReaction [
 	"Recibe una reaccion, la agrega, y si el usuario ya habia reaccionado antes, borra la anterior"
-
 	| reaccion |
 	reaccion := self buscarReaccion: aReaction.
-	reaccion ifNotNil: [ self quitarReaccion: reaccion .
-								self aplicarReaccion: aReaction  ]
-	ifNil: [ self aplicarReaccion: aReaction  ]
+	reaccion
+		ifNotNil: [ self quitarReaccion: reaccion.
+			self aplicarReaccion: aReaction ]
+		ifNil: [ self aplicarReaccion: aReaction ]
 ]
 
 { #category : #protected }
 Publicacion >> aplicarReaccion: aReaction [
-	aReaction estado
-		ifTrue: [ self agregarLike ]
-		ifFalse: [ self agregarDislike ] .
-		reacciones add: aReaction 
+	reacciones add: aReaction
 ]
 
 { #category : #accessing }
@@ -51,12 +36,12 @@ Publicacion >> buscarReaccion: aReaction [
 
 { #category : #accessing }
 Publicacion >> calcularPuntaje [
-	^ likes - dislikes
+	^ (self likes) - (self dislikes)
 ]
 
 { #category : #accessing }
 Publicacion >> dislikes [
-	^ dislikes
+	^ (reacciones reject: [ :r | r estado ]) size
 ]
 
 { #category : #accessing }
@@ -66,33 +51,17 @@ Publicacion >> horaYFecha [
 
 { #category : #initialization }
 Publicacion >> initialize [
-	likes := 0.
-	dislikes := 0.
 	reacciones := OrderedCollection new.
-	horaYfecha := DateAndTime now.
-	
+	horaYfecha := DateAndTime now
 ]
 
 { #category : #accessing }
 Publicacion >> likes [
-	^ likes 
-]
-
-{ #category : #protected }
-Publicacion >> quitarDislike [
-	dislikes := dislikes - 1
-]
-
-{ #category : #protected }
-Publicacion >> quitarLike [
-	likes := likes - 1
+	 ^ ((reacciones select: [ :r | r estado ]) size)
 ]
 
 { #category : #protected }
 Publicacion >> quitarReaccion: aReaction [
-	aReaction estado
-		ifTrue: [ self quitarLike ]
-		ifFalse: [ self quitarDislike ].
 	reacciones remove: aReaction
 ]
 
