@@ -159,11 +159,20 @@ CuOOra >> obtenerPreguntasDeTopico: aTopic [
 ]
 
 { #category : #queries }
+CuOOra >> obtenerPreguntasSinUsuario: anUser [
+	| users |
+	users := OrderedCollection new.
+	users addAll: usuarios.
+	users remove: anUser.
+	^ users flatCollect: [ :user | user preguntas ]
+]
+
+{ #category : #queries }
 CuOOra >> obtenerPuntajeDelUsuario: anUser [
-	^ (anUser calcularPuntajeDePreguntas
+	^ anUser calcularPuntajeDePreguntas
 		+
 			(self
-				calcularPuntajeDeRespuestas: (self obtenerRespuestasDelUsuario: anUser)))
+				calcularPuntajeDeRespuestas: (self obtenerRespuestasDelUsuarioAOtrasPreg: anUser))
 ]
 
 { #category : #queries }
@@ -177,6 +186,14 @@ CuOOra >> obtenerRespuestasDelUsuario: anUser [
 	res := self obtenerPreguntas flatCollect: [ :p | p respuestas ] .
 	^ (res select: [ :r | r perteneceA: anUser ])
 	
+]
+
+{ #category : #queries }
+CuOOra >> obtenerRespuestasDelUsuarioAOtrasPreg: anUser [
+	| res |
+	res := (self obtenerPreguntasSinUsuario: anUser)
+		flatCollect: [ :p | p respuestas ].
+	^ res select: [ :r | r perteneceA: anUser ]
 ]
 
 { #category : #queries }

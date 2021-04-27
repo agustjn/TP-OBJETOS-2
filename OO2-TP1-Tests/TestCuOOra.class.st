@@ -216,6 +216,7 @@ TestCuOOra >> testObtenerPuntajeDeUsuario [
 	"Una vez creado todo, se agrega a la pregunta la respuesta, y a cuOOra el usuario y la pregunta"
 	pregunta agregarRespuesta: respuesta.
 	cuOOra agregarUsuario: user.
+	cuOOra agregarUsuario: user.
 	cuOOra agregarPregunta: pregunta deTopicos: topico delUsuario: user.
 	"Se agregan una reaccion para modificar el puntaje, el usuario agrego una pregunta(20) y una respuesta(50), la pregunta tiene una like(1) da un total de 71"
 	pregunta agregarReaccion: reaccion1.
