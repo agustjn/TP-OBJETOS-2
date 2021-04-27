@@ -36,27 +36,8 @@ AnswerComponent >> renderContentOn: aCanvas [
 	aCanvas paragraph.
 	aCanvas label: answer text.
 	aCanvas paragraph.
-	aCanvas label
-		with:
-			answer likes asString , ' likes | ' , answer dislikes asString
-				, ' dislikes'.
-	aCanvas paragraph.
-	self renderizarLikes: aCanvas.
+	aCanvas render:(LikesComponent of: answer).
+
 
 	
-]
-
-{ #category : #rendering }
-AnswerComponent >> renderizarLikes: aCanvas [
-	aCanvas anchor 	
-				callback: [ answer 
-							agregarReaccion: (Reaccion newConEstado:true Usuario:self session user).
-							 ] ;
-					with: 'like'.
-	aCanvas space.
-	aCanvas space.
-	aCanvas anchor 		
-					callback: [ answer 
-							agregarReaccion: (Reaccion newConEstado:false Usuario:self session user). ] ;
-					with: 'dislike'.
 ]

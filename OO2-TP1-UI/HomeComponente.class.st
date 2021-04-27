@@ -18,38 +18,21 @@ HomeComponente >> createNewQuestion [
 HomeComponente >> renderContentOn: aCanvas [
 	self renderNavOn: aCanvas.
 	
-	aCanvas div class:'div-questions';with: [ self renderizarPreguntas: aCanvas ].
-	aCanvas div class:'new-question'; with:[
-	aCanvas anchor
-		callback: [ self createNewQuestion ];
-		with: [ aCanvas button: 'Nueva pregunta' ]
+	aCanvas div 
+		      class:'div-questions';
+				with: [ self renderizarPreguntas: aCanvas ].
+	aCanvas div 
+				class:'new-question'; 
+				with:[ aCanvas anchor
+										callback: [ self createNewQuestion ];
+										with: [ aCanvas button: 'Nueva pregunta' ]
 		.]
-]
-
-{ #category : #private }
-HomeComponente >> renderizarDetalles: aCanvas DePregunta: aQuestion [
-	aCanvas render: (QuestionComponent of: aQuestion andParent: self).
 ]
 
 { #category : #private }
 HomeComponente >> renderizarHeading: aCanvas [
 	aCanvas label: 'Bienvenido ' , self session user nombre.
 
-]
-
-{ #category : #private }
-HomeComponente >> renderizarLikes: aCanvas dePregunta: aQuestion [
-	aCanvas anchor 	
-				callback: [ aQuestion 
-							agregarReaccion: (Reaccion newConEstado:true Usuario:self session user).
-							 ] ;
-					with: 'like'.
-	aCanvas space.
-	aCanvas space.
-	aCanvas anchor 		
-					callback: [ aQuestion 
-							agregarReaccion: (Reaccion newConEstado:false Usuario:self session user). ] ;
-					with: 'dislike'.
 ]
 
 { #category : #private }

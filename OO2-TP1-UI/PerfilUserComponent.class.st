@@ -27,39 +27,6 @@ PerfilUserComponent >> renderContentOn: aCanvas [
 ]
 
 { #category : #private }
-PerfilUserComponent >> renderizarLikes: aCanvas dePregunta: aQuestion [
-	aCanvas anchor 	
-				callback: [ aQuestion 
-							agregarReaccion: (Reaccion newConEstado:true Usuario:self session user).
-							 ] ;
-					with: 'like'.
-	aCanvas space.
-	aCanvas space.
-	aCanvas anchor 		
-					callback: [ aQuestion 
-							agregarReaccion: (Reaccion newConEstado:false Usuario:self session user). ] ;
-					with: 'dislike'.
-]
-
-{ #category : #private }
-PerfilUserComponent >> renderizarPregunta: aCanvas de: aQuestion [
-	aCanvas label: aQuestion titulo.
-	aCanvas paragraph.
-	aCanvas label:'Topicos: '.
-	self renderizarTopicos: aQuestion topicos conCanvas:aCanvas.
-	aCanvas paragraph.
-	aCanvas label: 'Realizada por: ', user nombre, ' | '.
-	aCanvas label: aQuestion respuestas size asString, ' respuestas '.
-	aCanvas paragraph.
-	aCanvas label with: aQuestion likes asString, ' likes | ' , aQuestion dislikes asString, ' dislikes'.
-	aCanvas paragraph.
-	self renderizarLikes: aCanvas  dePregunta: aQuestion.
-	
-	
-	
-]
-
-{ #category : #private }
 PerfilUserComponent >> renderizarPreguntas: aCanvas [
 	| questions |
 	questions := user preguntas.
@@ -68,12 +35,6 @@ PerfilUserComponent >> renderizarPreguntas: aCanvas [
 				do: [ :question | 
 					aCanvas
 						listItem: [ (QuestionComponent of: question andParent: self) renderContentOn: aCanvas ] ] ]
-]
-
-{ #category : #private }
-PerfilUserComponent >> renderizarTopicos: aTopics conCanvas: aCanvas [
-	aTopics do: [ :topic | aCanvas label:topic nombre.
-								  aCanvas space.]
 ]
 
 { #category : #accesing }
