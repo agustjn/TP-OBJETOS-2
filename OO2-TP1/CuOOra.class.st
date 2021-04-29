@@ -114,8 +114,10 @@ CuOOra >> agregarUsuario: aUser [
 
 { #category : #queries }
 CuOOra >> calcularPuntajeDeRespuestas: someAnswers [
-	^ (someAnswers
-		sum: [ :a | a calcularPuntaje ]) + (someAnswers size * 50)
+	someAnswers isEmpty 
+		ifTrue: [ ^ 0 ].
+	^ someAnswers size * 50
+		+ (someAnswers sum: [ :a | a calcularPuntaje ])
 ]
 
 { #category : #queries }
@@ -170,9 +172,7 @@ CuOOra >> obtenerPreguntasSinUsuario: anUser [
 { #category : #queries }
 CuOOra >> obtenerPuntajeDelUsuario: anUser [
 	^ anUser calcularPuntajeDePreguntas
-		+
-			(self
-				calcularPuntajeDeRespuestas: (self obtenerRespuestasDelUsuarioAOtrasPreg: anUser))
+		+ (self calcularPuntajeDeRespuestas: (self obtenerRespuestasDelUsuarioAOtrasPreg: anUser))
 ]
 
 { #category : #queries }

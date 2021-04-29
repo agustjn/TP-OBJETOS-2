@@ -22,6 +22,6 @@ TestTopico >> setUp [
 
 { #category : #tests }
 TestTopico >> testMismoNombre [
-	self assert: topic1 nombre = 'Futbol'.
-	self assert: topic2 nombre = 'Tenis'. 
+	self assert: topic1 nombre equals: 'Futbol'.
+	self assert: topic2 nombre equals: 'Tenis'
 ]

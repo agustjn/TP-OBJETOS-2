@@ -2,14 +2,59 @@ Class {
 	#name : #TestCuOOra,
 	#superclass : #TestCase,
 	#instVars : [
-		'cuOOra'
+		'cuOOra',
+		'topic1',
+		'topic2',
+		'topic3',
+		'user1',
+		'user2',
+		'preg1',
+		'preg2',
+		'preg3',
+		'resp1',
+		'resp2',
+		'reaccion1',
+		'reaccion2'
 	],
 	#category : #'OO2-TP1-Tests'
 }
 
 { #category : #running }
 TestCuOOra >> setUp [
-   cuOOra := CuOOra new.
+	cuOOra := CuOOra new.
+	topic1 := Topico
+		newConNombre: 'Futbol'
+		yDesc: 'Se habla de partidos de champions'.
+	topic2 := Topico newConNombre: 'Basquet' yDesc: 'Se habla de Basquet'.
+	topic3 := Topico newConNombre: 'Infomatica' yDesc: 'Se habla de PC'.
+	user1 := Usuario nuevoConNombre: 'Pedro' yContraseña: 'pass1'.
+	user2 := Usuario nuevoConNombre: 'Juan' yContraseña: 'pass2'.
+	resp1 := Respuesta newCon: 'Tenes razon' Usuario: user1.
+	preg1 := Pregunta
+		newConTitulo: 'Messi'
+		yTexto: 'Messi es el mejor'
+		relacionadoA: topic1.
+	preg2 := Pregunta
+		newConTitulo: 'Ronaldo'
+		yTexto: 'Ronaldo es el mejor'
+		relacionadoA: topic3.
+	preg3 := Pregunta
+		newConTitulo: 'Campazzo'
+		yTexto: 'Campazzo es el mejor'
+		relacionadoA: topic2.
+	reaccion1 := Reaccion newConEstado: true Usuario: user2.
+	cuOOra agregarTopico: topic1.
+	cuOOra agregarTopico: topic2.
+	cuOOra agregarUsuario: user1.
+	cuOOra agregarUsuario: user2.
+	preg1 agregarRespuesta: resp2.
+	preg2 agregarRespuesta: resp1.
+	user1 agregarPregunta: preg1.
+	user1 agregarPregunta: preg2.
+	user2 agregarPregunta: preg3.
+	user1 agregarTopicoDeInteres: topic1.
+	user1 seguirUsuario: user2.
+	preg1 agregarReaccion: reaccion1 .
 ]
 
 { #category : #testing }
@@ -36,165 +81,59 @@ TestCuOOra >> testAgregarPreguntaDeTopicosDelUsuario [
 { #category : #testing }
 TestCuOOra >> testAgregarTopico [
 	"En este test prueba el funcionamiento de del metodo agregar topico de la clase cuOOra. Se crea un topico, se agrega a la instacia cuOOra, luego se verifica que esta este incluida en los topicos de cuOOra"
-
-	| topic |
-	topic := Topico
-		newConNombre: 'Futbol'
-		yDesc: 'Se habla de partidos de champions'.
-	cuOOra agregarTopico: topic.
-	self assert: (cuOOra topicos includes: topic)
+	|topicNuevo|
+	topicNuevo := Topico newConNombre: 'Testing' yDesc: 'Se habla de test'.
+	cuOOra agregarTopico: topicNuevo.
+	self assert: (cuOOra topicos includes: topicNuevo)
 ]
 
 { #category : #testing }
 TestCuOOra >> testAgregarUsuario [
-"En este test se prueba el metodo agregar usuario de la clase cuOOra. Se crean dos usuarios, luego se agregan a la instacia de cuOOra y finalmete se verifica si estos estan incluidos en los usuarios de cuOOra"
-	| user1 user2 |
-	user1 := Usuario nuevoConNombre: 'Pedro' yContraseña: 'pass1'.
-	user2 := Usuario nuevoConNombre: 'Juan' yContraseña: 'pass2'.
+	"En este test se prueba el metodo agregar usuario de la clase cuOOra. Se crean dos usuarios, luego se agregan a la instacia de cuOOra y finalmete se verifica si estos estan incluidos en los usuarios de cuOOra"
+	| userNew1 userNew2 |
+	userNew1 := Usuario nuevoConNombre: 'Pepe' yContraseña: '123'.
+	userNew2 := Usuario nuevoConNombre: 'Pablo' yContraseña: '123'.
 	cuOOra
-		agregarUsuario: user1;
-		agregarUsuario: user2.
+		agregarUsuario: userNew1;
+		agregarUsuario: userNew2.
 	self
 		assert:
 			(cuOOra usuarios
-				includes: user1;
-				includes: user2)
-]
-
-{ #category : #testing }
-TestCuOOra >> testLikesAndDislikes [
-	"En este test se prueba el funcionamiento del metodo de la clase reaccion y la cuenta de likes y dilikes. Se crean instancias de usuario, topico, pregunta y reaccion"
-	| pregunta topico reaccion1 reaccion2 user |
-	user := Usuario nuevoConNombre: 'Pedro' yContraseña: '123'.
-	topico := Topico newConNombre: 'Futbol' yDesc: 'Se habla de futbol'.
-	pregunta := Pregunta
-		newConTitulo: 'Messi'
-		yTexto: 'Messi es el mejor actual'
-		relacionadoA: topico.
-	reaccion1 := Reaccion newConEstado: true Usuario: user.
-	pregunta agregarReaccion: reaccion1.
-	reaccion2 := Reaccion newConEstado: false Usuario: user.
-	"una vez agregado las reacciones a las publicaciones se verifica que los likes y dislikes sean correctos"
-	self assert: pregunta likes identicalTo: 1.
-	self assert: pregunta dislikes identicalTo: 0.
-	"Se agrega otra reaccion para verificar el correcto funcionamiento"
-	pregunta agregarReaccion: reaccion2.
-	self assert: pregunta likes identicalTo: 0.
-	self assert: pregunta dislikes identicalTo: 1
+				includes: userNew1;
+				includes: userNew2)
 ]
 
 { #category : #testing }
 TestCuOOra >> testObtenerDeUnUserSusRespuestas [
 	"En este test se prueba el funcionamiento del metodo obtener las respuestas de un usuario, se crea una instacia de usuario, respuesta, topico y pregunta. Se agregan a cuOOra"
 
-	| respuesta pregunta topico user |
-	user := Usuario nuevoConNombre: 'Pepe' yContraseña: '123'.
-	respuesta := Respuesta newCon: 'Tenes razon' Usuario: user.
-	topico := Topico newConNombre: 'Futbol' yDesc: 'Se habla de futbol'.
-	pregunta := Pregunta
-		newConTitulo: 'Messi'
-		yTexto: 'Messi es el mejor'
-		relacionadoA: topico.
-	pregunta agregarRespuesta: respuesta.
-	cuOOra agregarUsuario: user.
-	cuOOra agregarPregunta: pregunta deTopicos: topico delUsuario: user.
 	"Se verifica si la respuesta esta incluida en la busqueda para comprobar si es correcto el metodo"
+
 	self
-		assert: ((cuOOra obtenerRespuestasDelUsuario: user) includes: respuesta)
+		assert: ((cuOOra obtenerRespuestasDelUsuario: user1) includes: resp1)
 ]
 
 { #category : #testing }
 TestCuOOra >> testObtenerPreguntasDeTopico [
-	| topic topic2 user1 preg1 preg2 auxCollection auxCollection2 user2 preg3 topic3|
-	"En este test se prueba el funcionamiento del metodo obtener preguntas de topico de la clase cuOOra.
-	auxCollection va a contener los topicos creados, para despues comprobar si la pregunta1
-	esta relacionada a los topicos creados (topic y topic2)
-	auxCollection 2 va a contener las preguntas 1 y 2 (preg1 y preg2) para despues comprobar
-	si el mensaje '#obtenerPreguntasDeTopico' devuelve la coleccion deseada (auxCollection2)"
-	topic := Topico
-		newConNombre: 'Futbol'
-		yDesc: 'Se habla de partidos de champions'.
-	topic2 := Topico
-		newConNombre: 'Deporte'
-		yDesc: 'Se habla de deportes'.
-	topic3 := Topico newConNombre: 'nada' yDesc: ''.
-	cuOOra
-		agregarTopico: topic;
-		agregarTopico: topic2;
-		agregarTopico: topic3.
-	auxCollection := OrderedCollection new.
-	auxCollection
-		add: topic;
-		add: topic2.
-	user1 := Usuario nuevoConNombre: 'Pedro' yContraseña: 'pass1'.
-	user2 := Usuario nuevoConNombre: 'Juan' yContraseña: 'pass2'.
-	cuOOra agregarUsuario: user1.
-	cuOOra agregarUsuario: user2.
-	preg3 := Pregunta newConTitulo: '' yTexto: ''  relacionadoA: topic3.
-	preg1 := Pregunta
-		newConTitulo: 'Messi salva la seleccion'
-		yTexto:
-			'El jugador del barcelona
-	Liones Messi le metio 5 goles a brasiluski'
-		relacionadoA: auxCollection.
-	preg2 := Pregunta
-		newConTitulo: 'Messi salva al barcelona'
-		yTexto:
-			'El jugador del barcelona
-	Liones Messi le metio 5 goles a madrid'
-		relacionadoA: auxCollection.
-	user1 agregarPregunta: preg1.
-	user1 agregarPregunta: preg2.
-	auxCollection2 := OrderedCollection new.
-	auxCollection2
-		add: preg1;
-		add: preg2.
+	"En este test se prueba el funcionamiento del metodo obtener preguntas de topico de la clase cuOOra"
+
 	self
-		assert: (cuOOra obtenerPreguntasDeTopico: topic)
-		equals: auxCollection2
+		assert: ((cuOOra obtenerPreguntasDeTopico: topic1) includes: preg1).
+	self
+		assert: ((cuOOra obtenerPreguntasDeTopico: topic1) includes: preg2)
 ]
 
 { #category : #testing }
 TestCuOOra >> testObtenerPreguntasRelevantesParaUsuario [
-	"En este test se prueba el funcionamiento del metodo obtener preguntas relevantes para un usuario, se crean instancias de usuario, topico y pregunta"
-	| user user2 user3 topic1 topic2 topic3 preg1 preg2 preg3 |
-	user := Usuario nuevoConNombre: 'Juan' yContraseña: '123'.
-	user2 := Usuario nuevoConNombre: 'Pedro' yContraseña: '123'.
-	user3 := Usuario nuevoConNombre: 'Messi' yContraseña: '123'.
-	topic1 := Topico newConNombre: 'Futbol' yDesc: ''.
-	topic2 := Topico newConNombre: 'Basquet' yDesc: ''.
-	topic3 := Topico newConNombre: 'Informatica' yDesc: ''.
-	preg1 := Pregunta
-		newConTitulo: 'Juega Argentina?'
-		yTexto: ''
-		relacionadoA: topic1.
-	preg2 := Pregunta
-		newConTitulo: 'Campazzo a la NBA?'
-		yTexto: ''
-		relacionadoA: topic2.
-	preg3 := Pregunta
-		newConTitulo: 'Algun desarollador?'
-		yTexto: ''
-		relacionadoA: topic3.
-	cuOOra agregarUsuario: user.
-	cuOOra agregarUsuario: user2.
-	cuOOra agregarUsuario: user3.
-	cuOOra agregarTopico: topic1.
-	cuOOra agregarTopico: topic2.
-	cuOOra agregarTopico: topic3.
-	cuOOra agregarPregunta: preg1 deTopicos: topic1 delUsuario: user2.
-	cuOOra agregarPregunta: preg3 deTopicos: topic3 delUsuario: user2.
-	cuOOra agregarPregunta: preg2 deTopicos: topic2 delUsuario: user3.
-	"Una vez creado todo y agregdo correctamente, se agrega al usuer un topico de interes(topic1) y sigue a otro usuario(user2)"
-	user agregarTopicoDeInteres: topic1.
-	user seguirUsuario: user2.
+	"En este test se prueba el funcionamiento del metodo obtener preguntas relevantes para un usuario"
 	"Se verifica que las preguntas obtenidas por el metedo sean correctas y solo sean esas"
+
 	self
-		assert: ((cuOOra preguntasRelevantesParaUsuario: user) includes: preg1).
+		assert: ((cuOOra preguntasRelevantesParaUsuario: user1) includes: preg1).
 	self
-		assert: ((cuOOra preguntasRelevantesParaUsuario: user) includes: preg3).
+		assert: ((cuOOra preguntasRelevantesParaUsuario: user1) includes: preg3).
 	self
-		assert: (cuOOra preguntasRelevantesParaUsuario: user) size
+		assert: (cuOOra preguntasRelevantesParaUsuario: user1) size
 		identicalTo: 2
 ]
 
@@ -202,28 +141,13 @@ TestCuOOra >> testObtenerPreguntasRelevantesParaUsuario [
 TestCuOOra >> testObtenerPuntajeDeUsuario [
 	"En este test se prueba el funcionamiento del metodo calcularPuntajeDelUsuario, se crean instancias de las clases usuario, reaccion, respuesta, topico y pregunta"
 
-	| respuesta pregunta topico user user2 reaccion1 reaccion2 |
-	user := Usuario nuevoConNombre: 'Pepe' yContraseña: '123'.
-	user2 := Usuario nuevoConNombre: 'Pedro' yContraseña: '123'.
-	reaccion1 := Reaccion newConEstado: true Usuario: user2.
-	reaccion2 := Reaccion newConEstado: false Usuario: user2.
-	respuesta := Respuesta newCon: 'Tenes razon' Usuario: user.
-	topico := Topico newConNombre: 'Futbol' yDesc: 'Se habla de futbol'.
-	pregunta := Pregunta
-		newConTitulo: 'Messi'
-		yTexto: 'Messi es el mejor'
-		relacionadoA: topico.
-	"Una vez creado todo, se agrega a la pregunta la respuesta, y a cuOOra el usuario y la pregunta"
-	pregunta agregarRespuesta: respuesta.
-	cuOOra agregarUsuario: user.
-	cuOOra agregarUsuario: user.
-	cuOOra agregarPregunta: pregunta deTopicos: topico delUsuario: user.
+	| reaccionNew |
+	reaccionNew := Reaccion newConEstado: false Usuario: user2.
 	"Se agregan una reaccion para modificar el puntaje, el usuario agrego una pregunta(20) y una respuesta(50), la pregunta tiene una like(1) da un total de 71"
-	pregunta agregarReaccion: reaccion1.
-	self assert: (cuOOra obtenerPuntajeDelUsuario: user) identicalTo: 71.
+	self assert: (cuOOra obtenerPuntajeDelUsuario: user1) identicalTo: 71.
 	"Se agrega otra reaccion para modifical el puntaje a 70, un dislike a la respuesta"
-	respuesta agregarReaccion: reaccion2.
-	self assert: (cuOOra obtenerPuntajeDelUsuario: user) identicalTo: 70
+	resp1 agregarReaccion: reaccionNew.
+	self assert: (cuOOra obtenerPuntajeDelUsuario: user1) identicalTo: 70
 ]
 
 { #category : #testing }
