@@ -26,7 +26,8 @@ Publicacion >> aplicarReaccion: aReaction [
 
 { #category : #accessing }
 Publicacion >> buscarReaccion: aReaction [
-"cambiar nombrea  reaccion de un mismo user"
+	"busca si el usuario ya habia realizado alguna reaccion, si es así la retorna, caso contrario retorna nil"
+
 	| r |
 	r := reacciones
 		detect: [ :reaction | reaction mismoUsuario: aReaction usuario ]

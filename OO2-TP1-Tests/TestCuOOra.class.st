@@ -10,6 +10,7 @@ Class {
 		'preg3',
 		'resp1',
 		'resp2',
+		'resp3',
 		'reaccion1',
 		'reaccion2',
 		'topicFutbol',
@@ -26,22 +27,33 @@ TestCuOOra >> setUp [
 	topicFutbol := Topico
 		newConNombre: 'Futbol'
 		yDesc: 'Se habla de partidos de champions'.
-	topicBasquet := Topico newConNombre: 'Basquet' yDesc: 'Se habla de Basquet'.
-	topicInformatica := Topico newConNombre: 'Informatica' yDesc: 'Se habla de PC'.
+	topicBasquet := Topico
+		newConNombre: 'Basquet'
+		yDesc: 'Se habla de Basquet'.
+	topicInformatica := Topico
+		newConNombre: 'Informatica'
+		yDesc: 'Se habla de PC'.
 	user1 := Usuario nuevoConNombre: 'Pedro' yContraseña: 'pass1'.
 	user2 := Usuario nuevoConNombre: 'Juan' yContraseña: 'pass2'.
 	user3 := Usuario nuevoConNombre: 'Diego' yContraseña: 'pass3'.
 	resp1 := Respuesta newCon: 'Tenes razon' Usuario: user1.
-	preg1 := Pregunta newConTitulo: 'Messi' yTexto: 'Messi es el mejor' relacionadoA: topicFutbol.
+	preg1 := Pregunta
+		newConTitulo: 'Messi'
+		yTexto: 'Messi es el mejor'
+		relacionadoA: topicFutbol.
 	preg2 := Pregunta
-	newConTitulo: 'Campazzo'
-	yTexto: 'Campazzo es el mejor'
-	relacionadoA: topicBasquet.
-	preg3 := Pregunta newConTitulo: 'Robert C. Martin ' yTexto: 'Crack de informatica' relacionadoA: topicInformatica.
+		newConTitulo: 'Campazzo'
+		yTexto: 'Campazzo es el mejor'
+		relacionadoA: topicBasquet.
+	preg3 := Pregunta
+		newConTitulo: 'Robert C. Martin '
+		yTexto: 'Crack de informatica'
+		relacionadoA: topicInformatica.
 	reaccion1 := Reaccion newConEstado: true Usuario: user2.
-	resp1 := Respuesta newCon:'Tu pregunta esta buena' Usuario:user2.
-	resp2 := Respuesta newCon:'Que??????' Usuario:user3.
-"	cuOOra agregarTopico: topic1.
+	resp1 := Respuesta newCon: 'Tu pregunta esta buena' Usuario: user2.
+	resp2 := Respuesta newCon: 'Que??????' Usuario: user3 .
+	resp3 := Respuesta newCon: 'Genial' Usuario: user1. 
+	"	cuOOra agregarTopico: topic1.
 	cuOOra agregarTopico: topic2.
 	cuOOra agregarUsuario: user1.
 	cuOOra agregarUsuario: user2."
@@ -99,16 +111,63 @@ TestCuOOra >> testCalcularPuntajeDeRespuestas [
 ]
 
 { #category : #testing }
-TestCuOOra >> testObtenerDeUnUserSusRespuestas [
-	"En este test se prueba el funcionamiento del metodo obtener las respuestas de un usuario, se crea una instacia de usuario, respuesta, topico y pregunta. Se agregan a cuOOra"
-	cuOOra agregarTopico: topicFutbol.
-	cuOOra agregarTopico: topicBasquet.
+TestCuOOra >> testCincoPreguntasRelevantesPara [
+	"En este test se prueba el funcionamiento del metodo obtener cinco preguntas relevantes para un usuario"
+
+	"Se verifica que las preguntas obtenidas por el metedo sean correctas y solo sean esas"
+
 	cuOOra agregarUsuario: user1.
 	cuOOra agregarUsuario: user2.
-   user1 agregarPregunta: preg1.
-	preg1 agregarRespuesta: resp1.
+	cuOOra agregarUsuario: user3.
+	cuOOra agregarTopico: topicFutbol.
+	user1 agregarTopicoDeInteres: topicFutbol.
+	user1 seguirUsuario: user2.
+	user2 agregarPregunta: preg3.
+	user3 agregarPregunta: preg1.
 	self
-		assert: ((cuOOra obtenerRespuestasDelUsuario: user2) includes: resp1)
+		assert: ((cuOOra preguntasRelevantesParaUsuario: user1) includes: preg1).
+	self
+		assert: ((cuOOra preguntasRelevantesParaUsuario: user1) includes: preg3).
+	self
+		assert: (cuOOra preguntasRelevantesParaUsuario: user1) size
+		identicalTo: 2
+]
+
+{ #category : #testing }
+TestCuOOra >> testExiste [
+	"Este test prueba el funcionamiento del metodo existe:, el cual verifica si existe un topico con el mismo nombre que el recibido por parametro"
+
+
+	"Si existe devuelve el topico, sino devuelve nil"
+
+	cuOOra agregarTopico: topicFutbol.
+	self assert: (cuOOra existe: 'Futbol') identicalTo: topicFutbol.
+	self assert: (cuOOra existe: 'Otro') identicalTo: nil
+]
+
+{ #category : #testing }
+TestCuOOra >> testObtenerAutorDePregunta [
+	"Este test evalua el funcionamiento del metodo obtener autor de pregunta"
+
+	cuOOra agregarUsuario: user1.
+	user1 agregarPregunta: preg1.
+	self
+		assert: (cuOOra obtenerAutorDePregunta: preg1)
+		identicalTo: user1
+]
+
+{ #category : #tests }
+TestCuOOra >> testObtenerPreguntas [
+	"Este test prueba el funcionamiento del metodo de obtener preguntas, que retorna todas las preguntas del sistema"
+	cuOOra agregarUsuario: user1.
+	user1 agregarPregunta: preg1.
+	user1 agregarPregunta: preg2.
+	cuOOra agregarUsuario: user2.
+	user2 agregarPregunta: preg3.
+	self assert: (cuOOra obtenerPreguntas includes: preg1).
+	self assert: (cuOOra obtenerPreguntas includes: preg2).
+	self assert: (cuOOra obtenerPreguntas includes: preg3).
+	self assert: cuOOra obtenerPreguntas size identicalTo: 3
 ]
 
 { #category : #testing }
@@ -148,6 +207,22 @@ TestCuOOra >> testObtenerPreguntasRelevantesParaUsuario [
 ]
 
 { #category : #testing }
+TestCuOOra >> testObtenerPreguntasSinUsuario [
+"Este test prueba el funcionamiento del metodo de obtener preguntas sin usuario, que retorna todas las preguntas del sistema menos la del usuario pasado por parametro"
+
+	cuOOra agregarUsuario: user1.
+	user1 agregarPregunta: preg1.
+	user1 agregarPregunta: preg2.
+	cuOOra agregarUsuario: user2.
+	user2 agregarPregunta: preg3.
+	self
+		assert: ((cuOOra obtenerPreguntasSinUsuario: user1) includes: preg3).
+	self
+		assert: (cuOOra obtenerPreguntasSinUsuario: user1) size
+		identicalTo: 1
+]
+
+{ #category : #testing }
 TestCuOOra >> testObtenerPuntajeDelUsuario [
 	"En este test se prueba el funcionamiento del metodo calcularPuntajeDelUsuario, se crean instancias de las clases usuario, reaccion, respuesta, topico y pregunta"
 
@@ -171,14 +246,33 @@ TestCuOOra >> testObtenerPuntajeDelUsuario [
 { #category : #testing }
 TestCuOOra >> testObtenerRespuestasDelUsuario [
 	"En este test se prueba el funcionamiento del metodo obtener las respuestas de un usuario, se crea una instacia de usuario, respuesta, topico y pregunta. Se agregan a cuOOra"
+
 	cuOOra agregarTopico: topicFutbol.
 	cuOOra agregarTopico: topicBasquet.
 	cuOOra agregarUsuario: user1.
 	cuOOra agregarUsuario: user2.
-   user1 agregarPregunta: preg1.
+	user1 agregarPregunta: preg1.
 	preg1 agregarRespuesta: resp1.
 	self
 		assert: ((cuOOra obtenerRespuestasDelUsuario: user2) includes: resp1)
+]
+
+{ #category : #testing }
+TestCuOOra >> testObtenerRespuestasDelUsuarioAOtrasPreg [
+	"En este test se prueba el funcionamiento del metodo obtener las respuestas de un usuario, pero sin retornar las respuestas a sus propias preguntas"
+
+	cuOOra agregarUsuario: user1.
+	cuOOra agregarUsuario: user2.
+	user1 agregarPregunta: preg1.
+	preg1 agregarRespuesta: resp1.
+	self
+		assert: (cuOOra obtenerRespuestasDelUsuarioAOtrasPreg: user1) isEmpty.
+	"Esta vacio porque la unica respuesta a que agrego es a su propia pregunta"
+	user2 agregarPregunta: preg2.
+	preg2 agregarRespuesta: resp3.
+	self
+		assert:
+			((cuOOra obtenerRespuestasDelUsuarioAOtrasPreg: user1) includes: resp3)
 ]
 
 { #category : #testing }

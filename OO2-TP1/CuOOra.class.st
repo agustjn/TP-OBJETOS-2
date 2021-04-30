@@ -116,7 +116,7 @@ CuOOra >> cincoPreguntasRelevantesPara: anUser [
 	^ cincoPregutas
 ]
 
-{ #category : #accessing }
+{ #category : #private }
 CuOOra >> existe: aString [
 
 	^ topicos
