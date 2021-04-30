@@ -71,19 +71,6 @@ CuOOra class >> soleInstance [
 ]
 
 { #category : #accessing }
-CuOOra >> agregarPregunta: aQuestion deTopicos: aTopics delUsuario: aUser [
-	"Inicialmente se agregan los topicos nuevos a la coleccion de CuOOra,
-	 luego se envia al usuario correspondientepara que agregue la pregunta
-	 a su respectiva coleccion"
-
-	aTopics isCollection
-		ifTrue: [ aTopics
-				do: [ :topic | topic ifNotNil: [ self agregarTopico: topic ] ] ]
-		ifFalse: [ self agregarTopico: aTopics ].
-	aUser agregarPregunta: aQuestion
-]
-
-{ #category : #accessing }
 CuOOra >> agregarPreguntaConTitulo: aTitle descripcion: aDesc topicos: someTopicsString usuario: anUser [
 	| topicosAgregados t |
 	topicosAgregados := OrderedCollection new.
@@ -112,7 +99,7 @@ CuOOra >> agregarUsuario: aUser [
 	usuarios add: aUser.
 ]
 
-{ #category : #queries }
+{ #category : #private }
 CuOOra >> calcularPuntajeDeRespuestas: someAnswers [
 	someAnswers isEmpty 
 		ifTrue: [ ^ 0 ].
@@ -173,11 +160,6 @@ CuOOra >> obtenerPreguntasSinUsuario: anUser [
 CuOOra >> obtenerPuntajeDelUsuario: anUser [
 	^ anUser calcularPuntajeDePreguntas
 		+ (self calcularPuntajeDeRespuestas: (self obtenerRespuestasDelUsuarioAOtrasPreg: anUser))
-]
-
-{ #category : #queries }
-CuOOra >> obtenerRespuestas: aQuestion [
-	^ aQuestion respuestasOrdenadas 
 ]
 
 { #category : #queries }

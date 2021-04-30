@@ -40,6 +40,7 @@ TestCuOOra >> setUp [
 	preg3 := Pregunta newConTitulo: 'Robert C. Martin ' yTexto: 'Crack de informatica' relacionadoA: topicInformatica.
 	reaccion1 := Reaccion newConEstado: true Usuario: user2.
 	resp1 := Respuesta newCon:'Tu pregunta esta buena' Usuario:user2.
+	resp2 := Respuesta newCon:'Que??????' Usuario:user3.
 "	cuOOra agregarTopico: topic1.
 	cuOOra agregarTopico: topic2.
 	cuOOra agregarUsuario: user1.
@@ -56,24 +57,11 @@ TestCuOOra >> setUp [
 ]
 
 { #category : #testing }
-TestCuOOra >> testAgregarPreguntaDeTopicosDelUsuario [
-	| anUser aQuestion topic |
-	anUser := Usuario nuevoConNombre: 'Agustin' yContraseña: '123'.
-	topic := Topico
-		newConNombre: 'Futbol'
-		yDesc: 'Se habla de partidos de champions'.
-	aQuestion := Pregunta
-		newConTitulo: 'Autos'
-		yTexto: 'Habia unos autos'
-		relacionadoA: topic.
-	cuOOra agregarUsuario: anUser.
-	cuOOra agregarTopico: topic.
-	cuOOra agregarPregunta: aQuestion deTopicos: topic delUsuario: anUser.
-	self
-		assert: (cuOOra obtenerPreguntasDeTopico: topic) first
-		equals: aQuestion.
-	self
-		assert: ((anUser preguntas) includes: aQuestion)
+TestCuOOra >> testAgregarPreguntaConTituloDescripcionTopicosUsuario [
+	cuOOra agregarUsuario:user1.
+   cuOOra agregarPreguntaConTitulo: 'Un titulo' descripcion:'Desc'  topicos:'Futbol' usuario:user1. 
+	self assert:(cuOOra obtenerPreguntas size > 0)
+	
 ]
 
 { #category : #testing }
@@ -99,6 +87,15 @@ TestCuOOra >> testAgregarUsuario [
 			(cuOOra usuarios
 				includes: userNew1;
 				includes: userNew2)
+]
+
+{ #category : #testing }
+TestCuOOra >> testCalcularPuntajeDeRespuestas [
+	| auxCol |
+	auxCol := OrderedCollection new.
+	resp1 agregarReaccion: reaccion1.
+	auxCol add: resp1.
+	self assert:(cuOOra calcularPuntajeDeRespuestas: auxCol) = 51
 ]
 
 { #category : #testing }
@@ -151,16 +148,37 @@ TestCuOOra >> testObtenerPreguntasRelevantesParaUsuario [
 ]
 
 { #category : #testing }
-TestCuOOra >> testObtenerPuntajeDeUsuario [
+TestCuOOra >> testObtenerPuntajeDelUsuario [
 	"En este test se prueba el funcionamiento del metodo calcularPuntajeDelUsuario, se crean instancias de las clases usuario, reaccion, respuesta, topico y pregunta"
 
-	| reaccionNew |
+	| reaccionNew respAux|
 	reaccionNew := Reaccion newConEstado: false Usuario: user2.
+	cuOOra agregarUsuario: user1.
+	cuOOra agregarUsuario: user2.
+	preg2 agregarReaccion: reaccion1.
+	user2 agregarPregunta: preg1.
+	respAux := (Respuesta newCon:'Una respuesta' Usuario:user1).
+	preg1 agregarRespuesta: respAux.
+	user1 agregarPregunta: preg2.
+	
 	"Se agregan una reaccion para modificar el puntaje, el usuario agrego una pregunta(20) y una respuesta(50), la pregunta tiene una like(1) da un total de 71"
 	self assert: (cuOOra obtenerPuntajeDelUsuario: user1) identicalTo: 71.
 	"Se agrega otra reaccion para modifical el puntaje a 70, un dislike a la respuesta"
-	resp1 agregarReaccion: reaccionNew.
+	respAux agregarReaccion: reaccionNew.
 	self assert: (cuOOra obtenerPuntajeDelUsuario: user1) identicalTo: 70
+]
+
+{ #category : #testing }
+TestCuOOra >> testObtenerRespuestasDelUsuario [
+	"En este test se prueba el funcionamiento del metodo obtener las respuestas de un usuario, se crea una instacia de usuario, respuesta, topico y pregunta. Se agregan a cuOOra"
+	cuOOra agregarTopico: topicFutbol.
+	cuOOra agregarTopico: topicBasquet.
+	cuOOra agregarUsuario: user1.
+	cuOOra agregarUsuario: user2.
+   user1 agregarPregunta: preg1.
+	preg1 agregarRespuesta: resp1.
+	self
+		assert: ((cuOOra obtenerRespuestasDelUsuario: user2) includes: resp1)
 ]
 
 { #category : #testing }
