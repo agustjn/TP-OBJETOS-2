@@ -3,9 +3,6 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'cuOOra',
-		'topic1',
-		'topic2',
-		'topic3',
 		'user1',
 		'user2',
 		'preg1',
@@ -14,7 +11,11 @@ Class {
 		'resp1',
 		'resp2',
 		'reaccion1',
-		'reaccion2'
+		'reaccion2',
+		'topicFutbol',
+		'topicBasquet',
+		'topicInformatica',
+		'user3'
 	],
 	#category : #'OO2-TP1-Tests'
 }
@@ -22,31 +23,28 @@ Class {
 { #category : #running }
 TestCuOOra >> setUp [
 	cuOOra := CuOOra new.
-	topic1 := Topico
+	topicFutbol := Topico
 		newConNombre: 'Futbol'
 		yDesc: 'Se habla de partidos de champions'.
-	topic2 := Topico newConNombre: 'Basquet' yDesc: 'Se habla de Basquet'.
-	topic3 := Topico newConNombre: 'Infomatica' yDesc: 'Se habla de PC'.
+	topicBasquet := Topico newConNombre: 'Basquet' yDesc: 'Se habla de Basquet'.
+	topicInformatica := Topico newConNombre: 'Informatica' yDesc: 'Se habla de PC'.
 	user1 := Usuario nuevoConNombre: 'Pedro' yContraseña: 'pass1'.
 	user2 := Usuario nuevoConNombre: 'Juan' yContraseña: 'pass2'.
+	user3 := Usuario nuevoConNombre: 'Diego' yContraseña: 'pass3'.
 	resp1 := Respuesta newCon: 'Tenes razon' Usuario: user1.
-	preg1 := Pregunta
-		newConTitulo: 'Messi'
-		yTexto: 'Messi es el mejor'
-		relacionadoA: topic1.
+	preg1 := Pregunta newConTitulo: 'Messi' yTexto: 'Messi es el mejor' relacionadoA: topicFutbol.
 	preg2 := Pregunta
-		newConTitulo: 'Ronaldo'
-		yTexto: 'Ronaldo es el mejor'
-		relacionadoA: topic3.
-	preg3 := Pregunta
-		newConTitulo: 'Campazzo'
-		yTexto: 'Campazzo es el mejor'
-		relacionadoA: topic2.
+	newConTitulo: 'Campazzo'
+	yTexto: 'Campazzo es el mejor'
+	relacionadoA: topicBasquet.
+	preg3 := Pregunta newConTitulo: 'Robert C. Martin ' yTexto: 'Crack de informatica' relacionadoA: topicInformatica.
 	reaccion1 := Reaccion newConEstado: true Usuario: user2.
-	cuOOra agregarTopico: topic1.
+	resp1 := Respuesta newCon:'Tu pregunta esta buena' Usuario:user2.
+"	cuOOra agregarTopico: topic1.
 	cuOOra agregarTopico: topic2.
 	cuOOra agregarUsuario: user1.
-	cuOOra agregarUsuario: user2.
+	cuOOra agregarUsuario: user2."
+	"
 	preg1 agregarRespuesta: resp2.
 	preg2 agregarRespuesta: resp1.
 	user1 agregarPregunta: preg1.
@@ -54,7 +52,7 @@ TestCuOOra >> setUp [
 	user2 agregarPregunta: preg3.
 	user1 agregarTopicoDeInteres: topic1.
 	user1 seguirUsuario: user2.
-	preg1 agregarReaccion: reaccion1 .
+	preg1 agregarReaccion: reaccion1 ."
 ]
 
 { #category : #testing }
@@ -106,27 +104,42 @@ TestCuOOra >> testAgregarUsuario [
 { #category : #testing }
 TestCuOOra >> testObtenerDeUnUserSusRespuestas [
 	"En este test se prueba el funcionamiento del metodo obtener las respuestas de un usuario, se crea una instacia de usuario, respuesta, topico y pregunta. Se agregan a cuOOra"
-
-	"Se verifica si la respuesta esta incluida en la busqueda para comprobar si es correcto el metodo"
-
+	cuOOra agregarTopico: topicFutbol.
+	cuOOra agregarTopico: topicBasquet.
+	cuOOra agregarUsuario: user1.
+	cuOOra agregarUsuario: user2.
+   user1 agregarPregunta: preg1.
+	preg1 agregarRespuesta: resp1.
 	self
-		assert: ((cuOOra obtenerRespuestasDelUsuario: user1) includes: resp1)
+		assert: ((cuOOra obtenerRespuestasDelUsuario: user2) includes: resp1)
 ]
 
 { #category : #testing }
 TestCuOOra >> testObtenerPreguntasDeTopico [
 	"En este test se prueba el funcionamiento del metodo obtener preguntas de topico de la clase cuOOra"
-
+	cuOOra agregarUsuario: user1.
+	cuOOra agregarTopico: topicFutbol.
+	cuOOra agregarTopico: topicBasquet.
+	user1 agregarPregunta:preg1; agregarPregunta:preg2.
+	
 	self
-		assert: ((cuOOra obtenerPreguntasDeTopico: topic1) includes: preg1).
+		assert: ((cuOOra obtenerPreguntasDeTopico: topicFutbol) includes: preg1).
 	self
-		assert: ((cuOOra obtenerPreguntasDeTopico: topic1) includes: preg2)
+		assert: ((cuOOra obtenerPreguntasDeTopico: topicBasquet) includes: preg2)
 ]
 
 { #category : #testing }
 TestCuOOra >> testObtenerPreguntasRelevantesParaUsuario [
 	"En este test se prueba el funcionamiento del metodo obtener preguntas relevantes para un usuario"
 	"Se verifica que las preguntas obtenidas por el metedo sean correctas y solo sean esas"
+	cuOOra agregarUsuario: user1.
+	cuOOra agregarUsuario: user2.
+	cuOOra agregarUsuario: user3.
+	user1 agregarTopicoDeInteres: topicFutbol.
+	user1 seguirUsuario: user2.
+	user2 agregarPregunta: preg3 .
+	user3 agregarPregunta: preg1.
+	
 
 	self
 		assert: ((cuOOra preguntasRelevantesParaUsuario: user1) includes: preg1).

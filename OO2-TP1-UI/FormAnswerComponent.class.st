@@ -49,7 +49,7 @@ FormAnswerComponent >> responder [
     text ifEmpty: [ ^ self ].
     question
         agregarRespuesta: (Respuesta newCon: text Usuario: self session user).
-    self answer
+
 	
 ]
 

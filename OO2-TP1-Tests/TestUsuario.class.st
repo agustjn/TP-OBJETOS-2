@@ -70,6 +70,12 @@ TestUsuario >> testCalcularPuntajeDePreguntas [
 ]
 
 { #category : #testing }
+TestUsuario >> testExistePregunta [
+	user1 agregarPregunta: preg1.
+	self assert:(user1 preguntas includes: preg1)
+]
+
+{ #category : #testing }
 TestUsuario >> testObtenerPreguntasDelTopico [
 	"En este test se prueba el funcionamiento del metodo obtener las preguntas de un topico. Se crean instancias de preguntas 1,2 y 3 a las cuales las primeras 2 corresponden al mismo topico"
 
