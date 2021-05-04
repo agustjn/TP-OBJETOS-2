@@ -1,11 +1,11 @@
 Class {
-	#name : #TopicQuestions,
-	#superclass : #Option,
+	#name : #TopicQuestionsRetriever,
+	#superclass : #QuestionRetriever,
 	#category : #'TP-Refactoring-Model'
 }
 
 { #category : #abstract }
-TopicQuestions >> relevantQuestions: anUser [
+TopicQuestionsRetriever >> retrieveQuestions: anUser [
 	| topicsCol temp qRet |
 	topicsCol := OrderedCollection new.
 	anUser topics do: [ :topic | topicsCol addAll: topic questions ].

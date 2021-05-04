@@ -1,14 +1,14 @@
 Class {
-	#name : #NewQuestions,
-	#superclass : #Option,
+	#name : #NewQuestionsRetriever,
+	#superclass : #QuestionRetriever,
 	#category : #'TP-Refactoring-Model'
 }
 
 { #category : #abstract }
-NewQuestions >> relevantQuestions: anUser [
+NewQuestionsRetriever >> retrieveQuestions: anUser [
 	| newsCol temp qRet |
 	newsCol := OrderedCollection new.
-	questions
+	cuoora questions
 		do: [ :q | 
 			q timestamp asDate = Date today
 				ifTrue: [ newsCol add: q ] ].

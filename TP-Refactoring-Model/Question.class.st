@@ -39,6 +39,7 @@ Question >> addTopic: aTopic [
 Question >> initialize [
 	super initialize.
 	answers := OrderedCollection new.
+	topics := OrderedCollection new.
 
 ]
 

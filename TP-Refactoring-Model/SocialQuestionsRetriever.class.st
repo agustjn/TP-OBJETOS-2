@@ -1,11 +1,11 @@
 Class {
-	#name : #SocialQuestions,
-	#superclass : #Option,
+	#name : #SocialQuestionsRetriever,
+	#superclass : #QuestionRetriever,
 	#category : #'TP-Refactoring-Model'
 }
 
 { #category : #abstract }
-SocialQuestions >> relevantQuestions: anUser [
+SocialQuestionsRetriever >> retrieveQuestions: anUser [
 	| followingCol temp qRet |
 	followingCol := OrderedCollection new.
 	anUser following
