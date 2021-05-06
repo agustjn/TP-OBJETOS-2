@@ -41,6 +41,11 @@ Publication >> positiveVotes [
 	^ votes select: [ :vote | vote isLike ]
 ]
 
+{ #category : #queries }
+Publication >> sameUser: anUser [
+	^ user == anUser
+]
+
 { #category : #accessing }
 Publication >> timestamp [
 	^ timestamp

@@ -39,5 +39,5 @@ QuestionRetriever >> questionsFilter: anUser [
 { #category : #retrieving }
 QuestionRetriever >> retrieveQuestions: anUser [
 	^ (self orderQuestions: (self questionsFilter: anUser))
-		reject: [ :q | q user = anUser ]
+		reject: [ :q | q sameUser: anUser ]
 ]

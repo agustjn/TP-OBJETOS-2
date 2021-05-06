@@ -60,6 +60,11 @@ User >> following [
 	^ following
 ]
 
+{ #category : #queries }
+User >> followingQuestions [
+	^ following flatCollect: [ :u | u questions  ]
+]
+
 { #category : #initialize }
 User >> initialize [
 
@@ -103,6 +108,11 @@ User >> questionsOfInterest [
 { #category : #accessing }
 User >> topics [
 	^ topics
+]
+
+{ #category : #queries }
+User >> topicsQuestions [
+	^ topics flatCollect: [ :t | t questions ]
 ]
 
 { #category : #accessing }
