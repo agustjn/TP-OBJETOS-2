@@ -22,7 +22,22 @@ QuestionRetriever >> cuoora: aCuooraInstance [
 	cuoora := aCuooraInstance 
 ]
 
+{ #category : #query }
+QuestionRetriever >> orderQuestions: someQuestions [
+	|temp |
+	temp := someQuestions 
+		asSortedCollection: [ :a :b | a positiveVotes size > b positiveVotes size ].
+	^ temp last: (100 min: temp size).
+	
+]
+
+{ #category : #query }
+QuestionRetriever >> questionsFilter: anUser [
+	self subclassResponsibility
+]
+
 { #category : #retrieving }
 QuestionRetriever >> retrieveQuestions: anUser [
-	self subclassResponsibility
+	^ (self orderQuestions: (self questionsFilter: anUser))
+		reject: [ :q | q user = anUser ]
 ]
