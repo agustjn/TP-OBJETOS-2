@@ -31,6 +31,12 @@ Publication >> initialize [
 	timestamp := DateAndTime now.
 ]
 
+{ #category : #queries }
+Publication >> isOfToday [
+	^ timestamp asDate = Date today
+	
+]
+
 { #category : #adding }
 Publication >> negativeVotes [
 	^ votes reject:[ :vote | vote isLike ]

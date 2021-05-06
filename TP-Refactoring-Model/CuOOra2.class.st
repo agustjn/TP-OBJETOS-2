@@ -45,6 +45,11 @@ CuOOra2 >> questions [
 ]
 
 { #category : #accessing }
+CuOOra2 >> questionsOfToday [
+	^ questions select: [ :question | question isOfToday ]
+]
+
+{ #category : #accessing }
 CuOOra2 >> topics [
 	^ topics
 ]
