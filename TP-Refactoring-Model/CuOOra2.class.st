@@ -54,6 +54,11 @@ CuOOra2 >> topics [
 	^ topics
 ]
 
+{ #category : #queries }
+CuOOra2 >> totalPositiveVotes [
+	^ questions sum:[ :question | question positiveVotes size ]
+]
+
 { #category : #accessing }
 CuOOra2 >> users [
 	^ users

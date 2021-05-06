@@ -25,6 +25,11 @@ Publication >> description: anObject [
 	description := anObject
 ]
 
+{ #category : #queries }
+Publication >> haveMoreVotesThan: averageVotes [
+	^ self positiveVotes size >= averageVotes
+]
+
 { #category : #initalize }
 Publication >> initialize [
 	votes := OrderedCollection new.
