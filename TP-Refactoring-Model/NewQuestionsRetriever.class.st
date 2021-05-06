@@ -6,6 +6,5 @@ Class {
 
 { #category : #query }
 NewQuestionsRetriever >> questionsFilter: anUser [
-	^ cuoora questions
-		select: [ :q | q timestamp asDate = Date today ].
+	^ cuoora questions select: [ :q | q timestamp asDate = Date today ]
 ]
