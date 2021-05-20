@@ -111,8 +111,11 @@ User >> topics [
 ]
 
 { #category : #queries }
-User >> topicsQuestions [
+User >> topicsQuestions [	
 	^ topics flatCollect: [ :t | t questions ]
+	
+
+
 ]
 
 { #category : #accessing }

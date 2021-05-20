@@ -5,8 +5,6 @@ Class {
 }
 
 { #category : #query }
-SocialQuestionsRetriever >> questionsFilter: anUser [ 
-	^ anUser followingQuestions 
-	
-	
+SocialQuestionsRetriever >> questionsFilter: anUser [
+	^ anUser followingQuestions
 ]

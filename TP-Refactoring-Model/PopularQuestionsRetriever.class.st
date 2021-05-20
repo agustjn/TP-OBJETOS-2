@@ -14,9 +14,8 @@ PopularQuestionsRetriever >> questionsFilter: anUser [
 { #category : #query }
 PopularQuestionsRetriever >> retrievePositiveQuestionsOf: questionsOfToday [
 	| averageVotes |
-	averageVotes := (cuoora totalPositiveVotes) / questionsOfToday size.
-	^ questionsOfToday select:[ :question | question haveMoreVotesThan: averageVotes  ]
-	
+	averageVotes := (cuoora questions sum: [:q | q positiveVotes size ])  / questionsOfToday size.
+	^ questionsOfToday select:[:q | q positiveVotes size >= averageVotes ]
 	
 	
 	
