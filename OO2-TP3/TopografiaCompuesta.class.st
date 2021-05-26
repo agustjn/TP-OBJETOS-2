@@ -19,22 +19,23 @@ TopografiaCompuesta >> calcularDesperdicio [
 ]
 
 { #category : #queries }
-TopografiaCompuesta >> calcularValor [
-	^ 'El valor de la proporcion de agua es : ' , (self calcularValorDeAgua asFloat) asString , ' , y el de tierra es: ' , (1 - self calcularValorDeAgua asFloat) asString
-	
-	
+TopografiaCompuesta >> calcularValorDeAgua [
+	| cantAgua suma |
+	suma := components
+		sum: [ :component | component calcularValorDeAgua ].
+	cantAgua := suma / components size.
+	^ cantAgua
 ]
 
 { #category : #queries }
-TopografiaCompuesta >> calcularValorDeAgua [
-
-	| cantAgua suma |
-	cantAgua := 0.
-	suma := components sum: [ :component | component calcularValorDeAgua ].
-	cantAgua := suma / components size.
-	^cantAgua
-	
-	
+TopografiaCompuesta >> comparar: unaTopografia [
+	"arreglar, no anda"
+	| esIgual |
+	esIgual := true.
+	1 to: 4 do: [ :x | 
+			 ((components at: x) comparar: (unaTopografia components at: x))
+					ifFalse: [ esIgual := false ] ].
+	^ esIgual
 ]
 
 { #category : #initialize }

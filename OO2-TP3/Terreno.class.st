@@ -25,6 +25,14 @@ Terreno >> calcularValorDeAgua [
 		
 ]
 
+{ #category : #queries }
+Terreno >> comparar: unaTopografia [
+
+
+	unaTopografia components ifNil: [ ^ tipo = unaTopografia tipo ].
+	^ false
+]
+
 { #category : #accessing }
 Terreno >> tipo [
 	^ tipo

@@ -1,12 +1,12 @@
 Class {
-	#name : #NeoJSONAdapter,
+	#name : #STONAdapter,
 	#superclass : #Object,
 	#category : #Biblioteca
 }
 
 { #category : #exporting }
-NeoJSONAdapter >> export: socios [
-	| col |
+STONAdapter >> export: socios [
+	| col ston |
 	col := socios
 		collect: [ :socio | 
 			OrderedDictionary new
@@ -14,5 +14,6 @@ NeoJSONAdapter >> export: socios [
 				at: #email put: socio email;
 				at: #legajo put: socio legajo;
 				yourself ].
-	^ NeoJSONWriter toStringPretty: col
+	ston := STONWriter .
+	^ ston prettyPrint: col
 ]
