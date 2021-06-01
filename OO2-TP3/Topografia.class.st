@@ -29,5 +29,20 @@ Topografia >> calcularValorDeAgua [
 
 { #category : #event }
 Topografia >> calcularValorDeTierra [
-	self subclassResponsibility 
+	^ 1 - self calcularValorDeAgua 
+]
+
+{ #category : #queries }
+Topografia >> compararConAgua [
+	^ false
+]
+
+{ #category : #queries }
+Topografia >> compararConCompuesta: unaTopografia [ 
+	^ false 
+]
+
+{ #category : #queries }
+Topografia >> compararConTierra [
+	^ false
 ]

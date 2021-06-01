@@ -9,9 +9,7 @@ Class {
 
 { #category : #queries }
 TopografiaCompuesta >> = unaTopografia [
-	"Esto solo anda para el ejemplo, si se compara una topografia simpe con una mixta da error"
-
-	^ self components = unaTopografia components
+	^ unaTopografia compararConCompuesta: self
 ]
 
 { #category : #accessing }
@@ -39,13 +37,10 @@ TopografiaCompuesta >> calcularValorDeAgua [
 	^ cantAgua asFloat
 ]
 
-{ #category : #event }
-TopografiaCompuesta >> calcularValorDeTierra [
-	| cantTierra suma |
-	suma := components
-		sum: [ :component | component calcularValorDeTierra ].
-	cantTierra := suma / components size.
-	^ cantTierra asFloat
+{ #category : #queries }
+TopografiaCompuesta >> compararConCompuesta: unaTopografia [
+
+	^ self components = unaTopografia components
 ]
 
 { #category : #accessing }

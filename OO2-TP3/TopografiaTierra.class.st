@@ -6,7 +6,7 @@ Class {
 
 { #category : #queries }
 TopografiaTierra >> = unaTopografia [
-	^ self calcularValorDeTierra = unaTopografia calcularValorDeTierra
+	^ unaTopografia compararConTierra
 ]
 
 { #category : #event }
@@ -19,7 +19,7 @@ TopografiaTierra >> calcularValorDeAgua [
 	^ 0 
 ]
 
-{ #category : #event }
-TopografiaTierra >> calcularValorDeTierra [
-	^ 1
+{ #category : #queries }
+TopografiaTierra >> compararConTierra [ 
+	^ true
 ]
