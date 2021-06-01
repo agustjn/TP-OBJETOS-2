@@ -1,21 +1,33 @@
 Class {
 	#name : #TopografiaCompuesta,
 	#superclass : #Topografia,
+	#instVars : [
+		'components'
+	],
 	#category : #'OO2-TP3'
 }
 
 { #category : #queries }
+TopografiaCompuesta >> = unaTopografia [
+	"Esto solo anda para el ejemplo, si se compara una topografia simpe con una mixta da error"
+
+	^ self components = unaTopografia components
+]
+
+{ #category : #accessing }
+TopografiaCompuesta >> agregarTopografia: unTerreno [
+	components add: unTerreno
+]
+
+{ #category : #queries }
 TopografiaCompuesta >> calcularDesperdicio [
-	| cantAgua promDesperdicio suma |
-	cantAgua := 0.
-	suma := components
-		sum: [ :component | component calcularValorDeAgua ].
-	cantAgua := suma / components size.
-	"El promedio de desperdicio es el 15% del total del agua de la topografia + el 5% del total de tierra"
-	promDesperdicio := cantAgua * 0.15 + ((1 - cantAgua) * 0.05).
+	"El promedio de desperdicio es el 15% del total del agua de la topografia + el 5% del total de tierra. Ademas si el promedio de desperdicio es menor al al 50%, se le suma un 3%"
+
+	| promDesperdicio |
+	promDesperdicio := self sumarDesperdicios.
 	promDesperdicio < 0.5
-		ifTrue: [ promDesperdicio := promDesperdicio * 1.03 ].	"Si el promedio de desperdicio es menor al al 50%, se le suma un 3%"
-	^ promDesperdicio
+		ifTrue: [ promDesperdicio := promDesperdicio * 1.03 ].
+	^ promDesperdicio asFloat
 ]
 
 { #category : #queries }
@@ -24,21 +36,29 @@ TopografiaCompuesta >> calcularValorDeAgua [
 	suma := components
 		sum: [ :component | component calcularValorDeAgua ].
 	cantAgua := suma / components size.
-	^ cantAgua
+	^ cantAgua asFloat
 ]
 
-{ #category : #queries }
-TopografiaCompuesta >> comparar: unaTopografia [
-	"arreglar, no anda"
-	| esIgual |
-	esIgual := true.
-	1 to: 4 do: [ :x | 
-			 ((components at: x) comparar: (unaTopografia components at: x))
-					ifFalse: [ esIgual := false ] ].
-	^ esIgual
+{ #category : #event }
+TopografiaCompuesta >> calcularValorDeTierra [
+	| cantTierra suma |
+	suma := components
+		sum: [ :component | component calcularValorDeTierra ].
+	cantTierra := suma / components size.
+	^ cantTierra asFloat
+]
+
+{ #category : #accessing }
+TopografiaCompuesta >> components [
+	^ components
 ]
 
 { #category : #initialize }
 TopografiaCompuesta >> initialize [ 
 	components := OrderedCollection new.
+]
+
+{ #category : #private }
+TopografiaCompuesta >> sumarDesperdicios [
+	^ components sum: [ :t | t calcularDesperdicio ]
 ]
