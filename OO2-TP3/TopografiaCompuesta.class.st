@@ -30,11 +30,10 @@ TopografiaCompuesta >> calcularDesperdicio [
 
 { #category : #queries }
 TopografiaCompuesta >> calcularValorDeAgua [
-	| cantAgua suma |
-	suma := components
-		sum: [ :component | component calcularValorDeAgua ].
-	cantAgua := suma / components size.
+	| cantAgua |
+	cantAgua := self sumarValorDeAgua / components size.
 	^ cantAgua asFloat
+	
 ]
 
 { #category : #queries }
@@ -56,4 +55,10 @@ TopografiaCompuesta >> initialize [
 { #category : #private }
 TopografiaCompuesta >> sumarDesperdicios [
 	^ components sum: [ :t | t calcularDesperdicio ]
+]
+
+{ #category : #private }
+TopografiaCompuesta >> sumarValorDeAgua [
+	^ components sum: [ :component | component calcularValorDeAgua  ] .
+
 ]
